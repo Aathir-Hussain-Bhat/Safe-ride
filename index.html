@@ -3,52 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SafeRide — Feel the Threat Before You See It | Smart Haptic Rider Safety</title>
-  <meta name="description" content="SafeRide is a smart haptic rider safety system concept for motorcycles and scooters, providing directional handlebar vibrations for rear-approaching traffic awareness.">
-  <meta name="theme-color" content="#070b12">
+  <title>SafeRide — Feel the Threat Before You See It</title>
+  <meta name="description" content="SafeRide is a smart haptic warning system for motorcycles and scooters that detects vehicles approaching from behind and alerts you through vibration in the left or right handlebar grip.">
+  <meta name="theme-color" content="#080E1A">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="SafeRide — Smart Haptic Rider Safety System">
-  <meta property="og:description" content="Smarter alerts. Safer rides. Directional handlebar vibrations alerting riders to vehicles approaching from behind.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256716/grok_1793256332150_tnciz0.png">
+  <meta property="og:title" content="SafeRide — Smarter alerts. Safer rides.">
+  <meta property="og:description" content="Directional handlebar vibrations alerting riders to vehicles approaching from behind.">
+  <meta property="og:image" content="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png">
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter & Caveat (Handwritten signature) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       CSS VARIABLES & THEME SETUP
+       DESIGN TOKENS & REFERENCE PALETTE
        ========================================================================== */
     :root {
-      --bg-primary: #070B12;
-      --bg-secondary: #0D1424;
-      --bg-card: rgba(14, 23, 42, 0.7);
-      --bg-card-hover: rgba(20, 32, 58, 0.85);
-      --border-subtle: rgba(56, 189, 248, 0.12);
-      --border-accent: rgba(0, 163, 255, 0.35);
-      --border-strong: rgba(0, 163, 255, 0.6);
-      --accent-blue: #00A3FF;
+      /* Hero Dark Slate Theme */
+      --hero-bg: #080E1A;
+      --hero-surface: #0E1626;
+      --hero-border: rgba(255, 255, 255, 0.08);
+      --hero-text: #FFFFFF;
+      --hero-muted: #94A3B8;
+
+      /* Brand Accent Colors */
+      --primary-blue: #0077FF;
+      --primary-hover: #0060D6;
+      --electric-blue: #1E90FF;
       --accent-cyan: #38BDF8;
-      --accent-glow: rgba(0, 163, 255, 0.22);
-      --accent-warn: #F59E0B;
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --text-dim: #64748B;
+      --radar-ring: rgba(0, 145, 255, 0.35);
+
+      /* Clean White Theme (Body & Cards) */
+      --bg-white: #FFFFFF;
+      --bg-light: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-light: #E2E8F0;
+      --text-dark: #0F172A;
+      --text-body: #475569;
+      --text-muted: #64748B;
+
+      /* Sizing & Radius */
       --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-full: 9999px;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      --container-max: 1240px;
-      --header-height: 74px;
-      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+      --container-width: 1220px;
+      --header-h: 76px;
+      --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* CSS Reset */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -57,17 +63,16 @@
 
     html {
       scroll-behavior: smooth;
-      color-scheme: dark;
-      background-color: var(--bg-primary);
+      background: var(--hero-bg);
+      color: var(--text-dark);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      line-height: 1.6;
+      background: var(--bg-white);
+      color: var(--text-dark);
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
@@ -80,894 +85,841 @@
     a {
       color: inherit;
       text-decoration: none;
-      transition: var(--transition);
     }
 
-    button, input, select, textarea {
-      font-family: inherit;
-      color: inherit;
-    }
-
-    /* Utilities */
     .container {
       width: 100%;
-      max-width: var(--container-max);
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
 
-    .section-spacing {
-      padding-top: 5.5rem;
-      padding-bottom: 5.5rem;
-      position: relative;
-    }
-
-    .pill-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-cyan);
-      background: rgba(0, 163, 255, 0.08);
-      border: 1px solid var(--border-subtle);
-      padding: 0.35rem 0.85rem;
-      border-radius: var(--radius-full);
-      margin-bottom: 1.25rem;
-    }
-
-    .pill-eyebrow::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--accent-blue);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent-blue);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 3.5rem auto;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 3.5vw, 2.75rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      color: var(--text-main);
-      margin-bottom: 1rem;
-    }
-
-    .section-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    .text-gradient {
-      background: linear-gradient(135deg, #38BDF8 0%, #00A3FF 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* Primary & Secondary Buttons */
+    /* Common Button Styles */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.55rem;
       font-weight: 600;
       font-size: 0.95rem;
-      padding: 0.85rem 1.75rem;
-      border-radius: var(--radius-md);
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-pill);
       cursor: pointer;
       border: 1px solid transparent;
       transition: var(--transition);
-      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
-    .btn-primary {
-      background: #00A3FF;
-      color: #070B12;
-      box-shadow: 0 4px 18px rgba(0, 163, 255, 0.25);
+    .btn-blue {
+      background: var(--primary-blue);
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(0, 119, 255, 0.35);
     }
 
-    .btn-primary:hover {
-      background: #38BDF8;
-      box-shadow: 0 6px 24px rgba(0, 163, 255, 0.4);
-      transform: translateY(-2px);
+    .btn-blue:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 20px rgba(0, 119, 255, 0.45);
+      transform: translateY(-1px);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-main);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-secondary:hover {
+    .btn-glass {
       background: rgba(255, 255, 255, 0.08);
-      border-color: var(--accent-cyan);
-      transform: translateY(-2px);
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 0.35rem 0.75rem;
-      border-radius: var(--radius-full);
-      font-family: var(--font-mono);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-warn);
-      box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
     }
 
     /* ==========================================================================
-       HEADER & NAVIGATION
+       HEADER & NAVIGATION (DARK NAV BAR LIKE REFERENCE)
        ========================================================================== */
     .site-header {
-      position: fixed;
+      background: var(--hero-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      height: var(--header-height);
-      background: rgba(7, 11, 18, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       z-index: 1000;
-      transition: var(--transition);
     }
 
     .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 100%;
+      height: var(--header-h);
     }
 
     .brand-logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      font-weight: 800;
-      font-size: 1.25rem;
+      gap: 0.65rem;
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #FFFFFF;
       letter-spacing: -0.02em;
-      color: var(--text-main);
     }
 
     .brand-icon {
-      width: 32px;
-      height: 32px;
-      color: var(--accent-blue);
-      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
     }
 
-    .nav-menu {
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
+      gap: 2rem;
       list-style: none;
     }
 
     .nav-link {
-      font-size: 0.9rem;
+      color: #94A3B8;
+      font-size: 0.92rem;
       font-weight: 500;
-      color: var(--text-muted);
       padding: 0.35rem 0;
       position: relative;
+      transition: var(--transition);
     }
 
-    .nav-link:hover, .nav-link.active {
-      color: var(--text-main);
+    .nav-link:hover {
+      color: #FFFFFF;
+    }
+
+    .nav-link.active {
+      color: #FFFFFF;
     }
 
     .nav-link.active::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -6px;
       left: 0;
       right: 0;
       height: 2px;
-      background: var(--accent-blue);
+      background: var(--primary-blue);
       border-radius: 2px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
     }
 
     .menu-toggle {
       display: none;
       background: none;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-sm);
-      color: var(--text-main);
-      padding: 0.5rem;
+      border: none;
+      color: #FFFFFF;
       cursor: pointer;
+      padding: 0.4rem;
     }
 
     /* ==========================================================================
-       HERO SECTION
+       HERO SECTION (MATCHING REFERENCE IMAGE COMPOSITION)
        ========================================================================== */
-    .hero {
-      padding-top: calc(var(--header-height) + 3.5rem);
-      padding-bottom: 5rem;
+    .hero-section {
+      background: var(--hero-bg);
       position: relative;
       overflow: hidden;
-      background: radial-gradient(circle at 75% 30%, rgba(0, 163, 255, 0.1) 0%, rgba(7, 11, 18, 0) 60%);
+      padding: 3.5rem 0 5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 3.5rem;
+      grid-template-columns: 1.05fr 1.15fr;
+      gap: 2.5rem;
       align-items: center;
     }
 
-    .hero-content {
-      max-width: 600px;
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #94A3B8;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
     }
 
-    .hero-headline {
-      font-size: clamp(2.5rem, 4.5vw, 3.65rem);
+    .hero-title {
+      font-size: clamp(2.6rem, 4.2vw, 3.8rem);
       font-weight: 800;
       line-height: 1.12;
+      color: #FFFFFF;
       letter-spacing: -0.03em;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-title .highlight {
+      color: var(--electric-blue);
+      display: block;
     }
 
     .hero-desc {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      line-height: 1.7;
+      font-size: 1.05rem;
+      color: var(--hero-muted);
+      line-height: 1.65;
       margin-bottom: 2rem;
+      max-width: 520px;
     }
 
-    .hero-cta-group {
+    /* 3 Inline Badges under Hero Text */
+    .hero-badges-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
+      gap: 1.5rem;
       margin-bottom: 2.25rem;
     }
 
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .hero-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0.85rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .hero-chip svg {
-      width: 14px;
-      height: 14px;
-      color: var(--accent-cyan);
-    }
-
-    .hero-visual {
-      position: relative;
-    }
-
-    .product-frame {
-      background: radial-gradient(circle at center, rgba(14, 23, 42, 0.9) 0%, rgba(7, 11, 18, 0.8) 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      position: relative;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-    }
-
-    .product-frame::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.45;
-    }
-
-    .hero-img {
-      width: 100%;
-      height: 420px;
-      object-fit: contain;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
-    }
-
-    .haptic-pulse-ring {
-      position: absolute;
-      border: 1px dashed rgba(56, 189, 248, 0.4);
-      border-radius: 50%;
-      animation: pulse-ring 3.5s infinite linear;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(0.85); opacity: 0.8; }
-      50% { transform: scale(1.05); opacity: 0.2; }
-      100% { transform: scale(0.85); opacity: 0.8; }
-    }
-
-    /* ==========================================================================
-       PROBLEM & OPPORTUNITY
-       ========================================================================== */
-    .problem-section {
-      background: #0B111D;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .challenge-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.75rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .challenge-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 2rem;
-      transition: var(--transition);
-      position: relative;
-    }
-
-    .challenge-card:hover {
-      border-color: var(--border-accent);
-      background: var(--bg-card-hover);
-      transform: translateY(-3px);
-    }
-
-    .card-num {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent-blue);
-      margin-bottom: 1.25rem;
-      display: block;
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--text-main);
-    }
-
-    .card-desc {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .tactile-statement-box {
-      background: rgba(0, 163, 255, 0.04);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1.75rem 2rem;
+    .hero-badge-item {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 0.55rem;
+      color: #E2E8F0;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
 
-    .tactile-statement-box svg {
-      width: 38px;
-      height: 38px;
-      color: var(--accent-cyan);
+    .hero-badge-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--electric-blue);
       flex-shrink: 0;
     }
 
-    /* ==========================================================================
-       FEATURES SECTION (WITH LEFT & RIGHT GRIP INTEGRATION)
-       ========================================================================== */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-lg);
-      padding: 2.25rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: var(--transition);
-    }
-
-    .feature-card:hover {
-      border-color: var(--border-accent);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .feature-header {
-      margin-bottom: 1.5rem;
-    }
-
-    .feature-icon-badge {
-      width: 48px;
-      height: 48px;
-      background: rgba(0, 163, 255, 0.08);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
+    .hero-cta-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: var(--accent-cyan);
-      margin-bottom: 1.25rem;
-    }
-
-    /* Grips Showcase: Left & Right side-by-side */
-    .grips-showcase {
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .grips-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    .grips-sub {
-      text-align: center;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .grips-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .grip-unit {
-      background: rgba(14, 23, 42, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      text-align: center;
-      position: relative;
-      transition: var(--transition);
-    }
-
-    .grip-unit:hover {
-      border-color: var(--border-strong);
-    }
-
-    .grip-unit-tag {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: rgba(0, 163, 255, 0.15);
-      color: var(--accent-cyan);
-      padding: 0.25rem 0.65rem;
-      border-radius: var(--radius-full);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .grip-img {
-      height: 240px;
-      width: 100%;
-      object-fit: contain;
-      margin: 1rem auto;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.6));
-    }
-
-    .grip-caption {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--text-main);
-      margin-bottom: 0.35rem;
-    }
-
-    .grip-desc {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    /* ==========================================================================
-       HOW IT WORKS SECTION (WITH SENSORS & CONTROL UNIT IMAGES)
-       ========================================================================== */
-    .how-it-works-section {
-      background: #090E1A;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .steps-visual-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .visual-step-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .visual-step-media {
-      height: 260px;
-      background: #070B12;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .visual-step-media img {
-      max-height: 100%;
-      width: 100%;
-      object-fit: contain;
-    }
-
-    .visual-step-body {
-      padding: 1.75rem;
-      flex-grow: 1;
-    }
-
-    .four-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .mini-step-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      position: relative;
-    }
-
-    .step-badge {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent-blue);
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .mini-step-card h4 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-    }
-
-    .mini-step-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* System Flow Diagram */
-    .flow-diagram-container {
-      background: rgba(14, 23, 42, 0.4);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .flow-diagram-title {
-      font-size: 0.85rem;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1.25rem;
-      text-align: center;
-    }
-
-    .flow-nodes {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
-    .flow-node {
-      background: #0B111D;
-      border: 1px solid rgba(0, 163, 255, 0.25);
-      border-radius: var(--radius-sm);
-      padding: 0.65rem 1.2rem;
-      font-size: 0.88rem;
+    /* Hero Right Visual: Realistic Road + Radar Overlay */
+    .hero-media-container {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-road-photo {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05);
+    }
+
+    /* Vehicle Approaching Circular Radar Overlay (from reference) */
+    .radar-alert-hud {
+      position: absolute;
+      top: 18%;
+      left: 12%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .radar-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 119, 255, 0.25) 0%, rgba(8, 14, 26, 0.8) 70%);
+      border: 2px solid var(--electric-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 25px rgba(0, 119, 255, 0.5);
+    }
+
+    .radar-circle::before, .radar-circle::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      animation: radar-pulse 2.4s infinite cubic-bezier(0.2, 0.6, 0.35, 1);
+    }
+
+    .radar-circle::before {
+      width: 130px;
+      height: 130px;
+    }
+
+    .radar-circle::after {
+      width: 170px;
+      height: 170px;
+      animation-delay: 0.6s;
+    }
+
+    @keyframes radar-pulse {
+      0% { transform: scale(0.6); opacity: 0.8; }
+      100% { transform: scale(1.15); opacity: 0; }
+    }
+
+    .radar-car-icon {
+      width: 32px;
+      height: 32px;
+      color: #FFFFFF;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));
+    }
+
+    .radar-alert-text {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      color: var(--text-main);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .flow-arrow {
-      color: var(--accent-blue);
-      font-weight: bold;
-    }
-
-    .tech-caveat-note {
-      font-size: 0.85rem;
-      color: var(--text-dim);
+      color: #E2E8F0;
       text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-      font-style: italic;
+      line-height: 1.25;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+      max-width: 120px;
+    }
+
+    /* Concentric Blue Vibration Rings Over Handlebar */
+    .haptic-wave-container {
+      position: absolute;
+      bottom: 28%;
+      right: 28%;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .haptic-ring {
+      width: 14px;
+      height: 52px;
+      border-right: 4px solid var(--electric-blue);
+      border-radius: 0 50% 50% 0;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 8px var(--electric-blue));
+      animation: haptic-pulse 1.2s infinite ease-in-out alternate;
+    }
+
+    .haptic-ring:nth-child(2) {
+      height: 68px;
+      animation-delay: 0.2s;
+    }
+
+    .haptic-ring:nth-child(3) {
+      height: 84px;
+      animation-delay: 0.4s;
+    }
+
+    @keyframes haptic-pulse {
+      0% { opacity: 0.25; transform: scaleY(0.85); }
+      100% { opacity: 1; transform: scaleY(1.05); }
     }
 
     /* ==========================================================================
-       PRODUCT COMPONENTS (EXPLODED / SYSTEM VIEW)
+       FOUR-COLUMN FEATURE RIBBON (WHITE CLEAN STRIP LIKE REFERENCE)
        ========================================================================== */
-    .components-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+    .feature-ribbon-section {
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+      padding: 3rem 0;
     }
 
-    .component-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
+    .ribbon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .ribbon-item {
       display: flex;
-      gap: 1rem;
+      gap: 1.1rem;
       align-items: flex-start;
     }
 
-    .comp-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(0, 163, 255, 0.12);
-      border: 1px solid var(--border-subtle);
-      color: var(--accent-cyan);
+    .ribbon-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      color: var(--primary-blue);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
       flex-shrink: 0;
-      font-family: var(--font-mono);
+      background: #F0F7FF;
+      border: 1px solid #E0EFFF;
     }
 
-    .comp-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
+    .ribbon-icon-wrap svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .ribbon-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
       margin-bottom: 0.35rem;
     }
 
-    .comp-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.45;
+    .ribbon-desc {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.5;
     }
 
     /* ==========================================================================
-       INTERACTIVE VIBRATION DEMONSTRATION
+       HOW IT WORKS SECTION (MATCHING REFERENCE IMAGE 3-PANEL LAYOUT)
        ========================================================================== */
-    .demo-container {
-      background: #0B111E;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    .how-it-works-section {
+      background: var(--bg-light);
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .demo-controls {
+    .how-it-works-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    /* Left Copy Column */
+    .how-left-col .section-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .how-left-col .how-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .how-left-col .how-desc {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    /* Center Product Kit Showcase */
+    .how-center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .kit-image-wrap {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      text-align: center;
+    }
+
+    .kit-image {
+      max-height: 240px;
+      margin: 0 auto 1.5rem auto;
+      object-fit: contain;
+    }
+
+    /* Numbered Legend below the Kit Render (Exactly from Reference) */
+    .kit-legend-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem 1.5rem;
+      width: 100%;
+      text-align: left;
+      padding-top: 1rem;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .kit-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .num-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .kit-subtext {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Right Card: Perfect for Indian Roads (from Reference) */
+    .indian-roads-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    .indian-roads-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .indian-roads-card p {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .indian-checklist {
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+
+    .indian-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .indian-checklist svg {
+      width: 18px;
+      height: 18px;
+      color: var(--primary-blue);
+      flex-shrink: 0;
+    }
+
+    .script-signature {
+      font-family: 'Caveat', cursive;
+      font-size: 1.7rem;
+      color: var(--primary-blue);
+      text-align: right;
+      display: block;
+      transform: rotate(-3deg);
+    }
+
+    /* ==========================================================================
+       INTERACTIVE HAPTIC SIMULATION
+       ========================================================================== */
+    .demo-section {
+      padding: 5rem 0;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-headline-center {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem auto;
+    }
+
+    .section-headline-center h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-headline-center p {
+      font-size: 1rem;
+      color: var(--text-body);
+    }
+
+    .simulator-container {
+      background: #F8FAFC;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .sim-tab-controls {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.75rem;
       margin-bottom: 2.5rem;
       flex-wrap: wrap;
     }
 
-    .demo-tab-btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-      font-weight: 600;
+    .sim-tab-btn {
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
       font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-body);
       cursor: pointer;
       transition: var(--transition);
     }
 
-    .demo-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-main);
+    .sim-tab-btn.active {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+      box-shadow: 0 4px 12px rgba(0, 119, 255, 0.25);
     }
 
-    .demo-tab-btn.active {
-      background: rgba(0, 163, 255, 0.15);
-      border-color: var(--accent-blue);
-      color: var(--accent-cyan);
-      box-shadow: 0 0 18px rgba(0, 163, 255, 0.2);
-    }
-
-    .demo-canvas {
+    .sim-display-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
       align-items: center;
-      padding: 2rem;
-      background: #060910;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--radius-md);
-      margin-bottom: 1.5rem;
     }
 
-    .handlebar-rig {
-      position: relative;
+    .handlebar-sim-visual {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 2.5rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 1rem;
-      border: 1px dashed rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-md);
-    }
-
-    .handlebar-crossbar {
-      position: absolute;
-      top: 50%;
-      left: 10%;
-      right: 10%;
-      height: 10px;
-      background: #1E293B;
-      transform: translateY(-50%);
-      z-index: 0;
-      border-radius: 5px;
-    }
-
-    .grip-simulator {
       position: relative;
+    }
+
+    .bar-stem {
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      height: 8px;
+      background: #CBD5E1;
+      border-radius: 4px;
       z-index: 1;
-      width: 80px;
-      background: #111827;
+    }
+
+    .grip-element {
+      position: relative;
+      z-index: 2;
+      width: 72px;
+      background: #0F172A;
       border: 2px solid #334155;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 1.25rem 0.5rem;
       text-align: center;
+      color: #FFFFFF;
       transition: transform 0.1s ease;
     }
 
-    .grip-simulator.vibrating {
-      animation: haptic-jitter 0.12s infinite alternate ease-in-out;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 25px rgba(0, 163, 255, 0.45);
+    .grip-element.pulsing {
+      animation: grip-shake 0.1s infinite alternate;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 20px rgba(0, 119, 255, 0.45);
     }
 
-    @keyframes haptic-jitter {
-      0% { transform: translate(-2px, 1px) rotate(-1deg); }
-      100% { transform: translate(2px, -1px) rotate(1deg); }
+    @keyframes grip-shake {
+      0% { transform: translateY(-2px); }
+      100% { transform: translateY(2px); }
     }
 
-    .grip-sim-title {
+    .grip-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #475569;
+      margin: 0.5rem auto 0 auto;
+    }
+
+    .grip-element.pulsing .grip-indicator {
+      background: var(--primary-blue);
+      box-shadow: 0 0 10px var(--primary-blue);
+    }
+
+    .sim-readout-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+    }
+
+    .sim-readout-tag {
       font-size: 0.75rem;
       font-weight: 700;
+      color: var(--primary-blue);
       text-transform: uppercase;
-      font-family: var(--font-mono);
       margin-bottom: 0.5rem;
     }
 
-    .grip-sim-indicator {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #334155;
-      margin: 0 auto;
-      transition: var(--transition);
-    }
-
-    .grip-simulator.vibrating .grip-sim-indicator {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 12px var(--accent-cyan);
-    }
-
-    .demo-readout {
-      padding: 1.5rem;
-      background: rgba(14, 23, 42, 0.5);
-      border-radius: var(--radius-md);
-      border-left: 4px solid var(--accent-blue);
-    }
-
-    .readout-label {
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-      color: var(--accent-cyan);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.35rem;
-    }
-
-    .readout-state {
+    .sim-readout-title {
       font-size: 1.2rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--text-dark);
       margin-bottom: 0.5rem;
     }
 
-    .readout-explanation {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .demo-disclaimer {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      font-family: var(--font-mono);
+    .sim-readout-desc {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.6;
     }
 
     /* ==========================================================================
-       SPECIFICATIONS TABLE
+       HARDWARE GALLERY & DETAILED CARDS
        ========================================================================== */
-    .specs-table-wrapper {
-      max-width: 900px;
-      margin: 0 auto 1.5rem auto;
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+    .gallery-section {
+      padding: 5rem 0;
+      background: var(--bg-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .gallery-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
       overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+      border-color: #CBD5E1;
+    }
+
+    .gallery-media {
+      height: 220px;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .gallery-media img {
+      max-height: 100%;
+      width: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-card:hover .gallery-media img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption-row {
+      padding: 1.1rem 1.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* Modal Lightbox */
+    .lightbox-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(8, 14, 26, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .lightbox-backdrop.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 860px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    .lightbox-content img {
+      max-height: 70vh;
+      max-width: 100%;
+      margin: 0 auto 1.25rem auto;
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .lightbox-content h3 {
+      color: #FFFFFF;
+      font-size: 1.25rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .lightbox-content p {
+      color: #94A3B8;
+      font-size: 0.9rem;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       SPECIFICATIONS TABLE (CLEAN WHITE/SLATE MATRIX)
+       ========================================================================== */
+    .specs-section {
+      padding: 5rem 0;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .specs-card-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     }
 
     .specs-table {
@@ -976,510 +928,178 @@
       text-align: left;
     }
 
-    .specs-table tr {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    .specs-table th, .specs-table td {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.92rem;
     }
 
-    .specs-table tr:last-child {
+    .specs-table tr:last-child th, .specs-table tr:last-child td {
       border-bottom: none;
     }
 
     .specs-table th {
-      padding: 1.1rem 1.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.02);
       width: 38%;
-      border-right: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-body);
+      background: #F8FAFC;
+      font-weight: 600;
     }
 
     .specs-table td {
-      padding: 1.1rem 1.5rem;
-      font-size: 0.92rem;
-      color: var(--text-main);
-      font-family: var(--font-mono);
+      color: var(--text-dark);
+      font-weight: 500;
     }
 
-    .specs-badge-eval {
+    .spec-pill {
       display: inline-block;
-      padding: 0.2rem 0.55rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      background: rgba(245, 158, 11, 0.1);
-      color: #FBBF24;
-      border: 1px solid rgba(245, 158, 11, 0.25);
-    }
-
-    /* ==========================================================================
-       ROADMAP SECTION
-       ========================================================================== */
-    .roadmap-timeline {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      position: relative;
-    }
-
-    .roadmap-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .roadmap-card.active {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 25px rgba(0, 163, 255, 0.15);
-      background: rgba(14, 23, 42, 0.9);
-    }
-
-    .roadmap-stage-num {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--accent-blue);
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .current-pulse-badge {
-      font-size: 0.7rem;
-      background: rgba(0, 163, 255, 0.2);
-      color: var(--accent-cyan);
-      padding: 0.15rem 0.5rem;
-      border-radius: var(--radius-full);
-      border: 1px solid var(--border-accent);
-    }
-
-    .roadmap-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--text-main);
-    }
-
-    .roadmap-desc {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* ==========================================================================
-       CINEMATIC REAL-WORLD ROAD CONCEPT & INDIAN RIDERS
-       ========================================================================== */
-    .road-concept-section {
-      position: relative;
-      background: #080D17;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .cinematic-banner {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      position: relative;
-      margin-bottom: 3.5rem;
-    }
-
-    .banner-img {
-      width: 100%;
-      height: 440px;
-      object-fit: cover;
-      display: block;
-      filter: brightness(0.9) contrast(1.05);
-    }
-
-    .banner-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 2.5rem;
-      background: linear-gradient(to top, rgba(7, 11, 18, 0.95) 10%, rgba(7, 11, 18, 0) 100%);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .banner-caption {
-      max-width: 600px;
-    }
-
-    .banner-title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-    }
-
-    .banner-sub {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    .indian-needs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.75rem;
-    }
-
-    .need-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-    }
-
-    .need-card h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-    }
-
-    .need-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* ==========================================================================
-       PRODUCT GALLERY (ALL 6 IMAGES + LIGHTBOX)
-       ========================================================================== */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .gallery-item {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .gallery-item:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-    }
-
-    .gallery-thumb-wrap {
-      height: 220px;
-      background: #060A12;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      overflow: hidden;
-    }
-
-    .gallery-thumb-wrap img {
-      max-height: 100%;
-      width: 100%;
-      object-fit: contain;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-thumb-wrap.lifestyle img {
-      object-fit: cover;
-      height: 100%;
-    }
-
-    .gallery-item:hover .gallery-thumb-wrap img {
-      transform: scale(1.04);
-    }
-
-    .gallery-info {
-      padding: 1.1rem 1.25rem;
-      background: rgba(14, 23, 42, 0.5);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .gallery-label {
-      font-size: 0.92rem;
+      font-size: 0.78rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: #FEF3C7;
+      color: #92400E;
       font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .gallery-zoom-icon {
-      color: var(--accent-cyan);
-      opacity: 0.7;
-    }
-
-    /* Lightbox Modal */
-    .lightbox-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(4, 7, 13, 0.94);
-      backdrop-filter: blur(8px);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-
-    .lightbox-modal.active {
-      display: flex;
-    }
-
-    .lightbox-content {
-      max-width: 900px;
-      width: 100%;
-      position: relative;
-      text-align: center;
-    }
-
-    .lightbox-img {
-      max-height: 75vh;
-      max-width: 100%;
-      margin: 0 auto 1.5rem auto;
-      object-fit: contain;
-      border-radius: var(--radius-md);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
-    }
-
-    .lightbox-caption {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.25rem;
-    }
-
-    .lightbox-sub {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .lightbox-close-btn {
-      position: absolute;
-      top: -45px;
-      right: 0;
-      background: none;
-      border: none;
-      color: var(--text-main);
-      font-size: 2rem;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    /* ==========================================================================
-       ABOUT & METHODOLOGY
-       ========================================================================== */
-    .about-box {
-      max-width: 860px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
-      padding: 3.5rem;
-    }
-
-    .about-lead {
-      font-size: 1.25rem;
-      line-height: 1.7;
-      color: var(--text-main);
-      margin-bottom: 1.5rem;
-    }
-
-    .about-body {
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .about-disclaimer-pill {
-      margin-top: 2rem;
-      padding: 1.25rem;
-      border-radius: var(--radius-md);
-      background: rgba(245, 158, 11, 0.05);
-      border: 1px solid rgba(245, 158, 11, 0.2);
-      font-size: 0.9rem;
-      color: #FCD34D;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
     }
 
     /* ==========================================================================
        EARLY ACCESS FORM
        ========================================================================== */
-    .form-wrapper {
-      max-width: 680px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
-      padding: 2.75rem;
+    .early-access-section {
+      padding: 5rem 0;
+      background: var(--bg-light);
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .form-group {
-      margin-bottom: 1.35rem;
+    .form-container-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem 2.25rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     }
 
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
     }
 
-    .form-label {
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
       display: block;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.45rem;
+      color: var(--text-dark);
+      margin-bottom: 0.4rem;
     }
 
-    .form-control {
+    .form-input {
       width: 100%;
-      background: rgba(7, 11, 18, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
       border-radius: var(--radius-sm);
-      padding: 0.8rem 1rem;
-      color: var(--text-main);
+      padding: 0.75rem 0.95rem;
       font-size: 0.92rem;
+      color: var(--text-dark);
       transition: var(--transition);
     }
 
-    .form-control:focus {
+    .form-input:focus {
       outline: none;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.18);
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.15);
     }
 
-    textarea.form-control {
+    textarea.form-input {
+      min-height: 90px;
       resize: vertical;
-      min-height: 95px;
     }
 
-    .checkbox-container {
+    .consent-check-row {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      margin-top: 1rem;
+      gap: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--text-body);
       margin-bottom: 1.75rem;
+      cursor: pointer;
     }
 
-    .checkbox-container input {
-      margin-top: 0.25rem;
-      accent-color: var(--accent-blue);
-    }
-
-    .form-status {
-      display: none;
-      padding: 1rem;
-      border-radius: var(--radius-sm);
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-    }
-
-    .form-status.success {
-      display: block;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34D399;
-    }
-
-    .form-status.error {
-      display: block;
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #F87171;
+    .consent-check-row input {
+      margin-top: 0.2rem;
+      accent-color: var(--primary-blue);
     }
 
     /* ==========================================================================
        FAQ ACCORDION
        ========================================================================== */
-    .faq-container {
+    .faq-section {
+      padding: 5rem 0;
+      background: var(--bg-white);
+    }
+
+    .faq-wrapper {
       max-width: 820px;
       margin: 0 auto;
     }
 
     .faq-item {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
       margin-bottom: 1rem;
       overflow: hidden;
-      transition: var(--transition);
     }
 
-    .faq-item:hover {
-      border-color: rgba(255, 255, 255, 0.12);
-    }
-
-    .faq-question {
+    .faq-header-btn {
       width: 100%;
-      text-align: left;
-      background: none;
+      background: #FFFFFF;
       border: none;
-      padding: 1.35rem 1.75rem;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--text-dark);
       cursor: pointer;
     }
 
     .faq-chevron {
+      color: var(--primary-blue);
       transition: transform 0.25s ease;
-      color: var(--accent-cyan);
-      flex-shrink: 0;
-      margin-left: 1rem;
     }
 
     .faq-item.active .faq-chevron {
       transform: rotate(180deg);
     }
 
-    .faq-answer {
+    .faq-body {
       display: none;
-      padding: 0 1.75rem 1.35rem 1.75rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
+      padding: 0 1.5rem 1.25rem 1.5rem;
+      font-size: 0.92rem;
+      color: var(--text-body);
       line-height: 1.65;
+      background: #FFFFFF;
     }
 
-    .faq-item.active .faq-answer {
+    .faq-item.active .faq-body {
       display: block;
     }
 
     /* ==========================================================================
-       FOOTER
+       FOOTER (CLEAN DARK BASE)
        ========================================================================== */
     .site-footer {
-      background: #04070D;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      background: #080E1A;
+      color: #94A3B8;
       padding: 4.5rem 0 2.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .footer-grid {
@@ -1489,20 +1109,19 @@
       margin-bottom: 3.5rem;
     }
 
-    .footer-brand-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-top: 1rem;
-      max-width: 320px;
+    .footer-brand h4 {
+      color: #FFFFFF;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
     }
 
     .footer-heading {
-      font-size: 0.9rem;
+      color: #FFFFFF;
+      font-size: 0.88rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-main);
+      letter-spacing: 0.05em;
       margin-bottom: 1.25rem;
     }
 
@@ -1516,30 +1135,51 @@
 
     .footer-links a {
       font-size: 0.88rem;
-      color: var(--text-muted);
+      color: #94A3B8;
+      transition: var(--transition);
     }
 
     .footer-links a:hover {
-      color: var(--accent-cyan);
+      color: #FFFFFF;
     }
 
     .footer-disclaimer-box {
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 2rem;
       margin-bottom: 2rem;
       font-size: 0.8rem;
-      color: var(--text-dim);
       line-height: 1.6;
+      color: #64748B;
     }
 
-    .footer-bottom {
+    .footer-bottom-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 0.82rem;
-      color: var(--text-dim);
       flex-wrap: wrap;
       gap: 1rem;
+    }
+
+    /* Toast */
+    .toast-popup {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 0.9rem 1.4rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      gap: 0.65rem;
+      z-index: 3000;
+      font-size: 0.88rem;
+    }
+
+    .toast-popup.visible {
+      display: flex;
     }
 
     /* ==========================================================================
@@ -1548,332 +1188,391 @@
     @media (max-width: 992px) {
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 3rem;
       }
-      .hero-content {
-        max-width: 100%;
-        text-align: center;
-      }
-      .hero-cta-group, .hero-chips {
-        justify-content: center;
-      }
-      .challenge-grid, .components-grid, .gallery-grid, .indian-needs-grid, .roadmap-timeline {
+      .ribbon-grid {
         grid-template-columns: 1fr 1fr;
       }
-      .features-grid, .steps-visual-grid, .demo-canvas {
+      .how-it-works-grid {
         grid-template-columns: 1fr;
+      }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
       }
       .footer-grid {
         grid-template-columns: 1fr 1fr;
       }
+      .sim-display-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 768px) {
-      .nav-menu {
+      .nav-links {
+        display: none;
         position: fixed;
-        top: var(--header-height);
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(7, 11, 18, 0.98);
-        backdrop-filter: blur(16px);
+        top: var(--header-h);
+        left: 0; right: 0; bottom: 0;
+        background: #080E1A;
         flex-direction: column;
         justify-content: center;
         gap: 1.75rem;
-        display: none;
       }
-      .nav-menu.open {
+      .nav-links.active {
         display: flex;
       }
       .menu-toggle {
         display: block;
       }
-      .header-cta-btn {
-        display: none;
+      .ribbon-grid {
+        grid-template-columns: 1fr;
       }
-      .challenge-grid, .four-steps-grid, .components-grid, .gallery-grid, .indian-needs-grid, .roadmap-timeline, .grips-grid, .form-row {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
         grid-template-columns: 1fr;
       }
       .footer-grid {
         grid-template-columns: 1fr;
       }
-      .about-box {
-        padding: 2rem;
+      .hero-road-photo {
+        height: 320px;
       }
-      .form-wrapper {
-        padding: 1.75rem;
-      }
-      .banner-overlay {
-        position: static;
-        background: #070B12;
-        padding: 1.5rem;
-      }
-      .banner-img {
-        height: 260px;
-      }
-    }
-
-    /* Prefers Reduced Motion */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+      .radar-alert-hud {
+        top: 10%;
+        left: 8%;
       }
     }
   </style>
 </head>
+
+<div id="videoLightbox" class="video-lightbox"
+     onclick="if(event.target===this) closeVideoLightbox()">
+
+  <button class="video-close"
+          onclick="closeVideoLightbox()"
+          aria-label="Close video">&times;</button>
+
+  <video id="heroVideo"
+         controls
+         playsinline
+         preload="metadata">
+    <source
+      src="https://res.cloudinary.com/prjgzqvy/video/upload/v1793267603/YouCut_20261029_152116503_xarb7s.mp4"
+      type="video/mp4">
+    Your browser does not support video playback.
+  </video>
+</div>
+
+<style>
+.video-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,.94);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.video-lightbox.active {
+  display: flex;
+}
+
+#heroVideo {
+  width: 100%;
+  max-width: 1000px;
+  max-height: 85vh;
+  border-radius: 14px;
+  background: #000;
+}
+
+.video-close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  color: white;
+  background: transparent;
+  border: none;
+  font-size: 42px;
+  cursor: pointer;
+}
+</style>
+
+<script>
+function openVideoLightbox() {
+  const box = document.getElementById('videoLightbox');
+  const video = document.getElementById('heroVideo');
+
+  box.classList.add('active');
+  video.play().catch(() => {});
+}
+
+function closeVideoLightbox() {
+  const box = document.getElementById('videoLightbox');
+  const video = document.getElementById('heroVideo');
+
+  video.pause();
+  video.currentTime = 0;
+  box.classList.remove('active');
+}
+</script>
+
 <body>
 
   <!-- ==========================================================================
-       STICKY HEADER / NAVIGATION
+       HEADER / NAV BAR
        ========================================================================== -->
-  <header class="site-header" id="siteHeader">
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="#hero" class="brand-logo" aria-label="SafeRide Home">
-        <!-- Shield & Motion SVG Logo -->
-        <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 3L5 7V14C5 21.5 9.8 28.2 16 30C22.2 28.2 27 21.5 27 14V7L16 3Z" stroke="#00A3FF" stroke-width="2.2" stroke-linejoin="round"/>
-          <path d="M11 16H21" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
-          <path d="M14 12H18" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
-          <path d="M13 20H19" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+      <a href="#hero" class="brand-logo">
+        <svg class="brand-icon" viewBox="0 0 32 32" fill="none">
+          <path d="M16 3L5 7V14C5 21.5 9.8 28.2 16 30C22.2 28.2 27 21.5 27 14V7L16 3Z" stroke="#0077FF" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M11 16H21" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M13 12H19" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round"/>
         </svg>
         <span>SafeRide</span>
       </a>
 
       <nav aria-label="Main Navigation">
-        <ul class="nav-menu" id="navMenu">
-          <li><a href="#hero" class="nav-link">Home</a></li>
-          <li><a href="#problem" class="nav-link">The Need</a></li>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
           <li><a href="#features" class="nav-link">Features</a></li>
           <li><a href="#howItWorks" class="nav-link">How It Works</a></li>
-          <li><a href="#demonstration" class="nav-link">Simulation</a></li>
-          <li><a href="#specs" class="nav-link">Specifications</a></li>
-          <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+          <li><a href="#specs" class="nav-link">Specs</a></li>
           <li><a href="#gallery" class="nav-link">Gallery</a></li>
-          <li><a href="#faq" class="nav-link">FAQ</a></li>
-          <li><a href="#earlyAccess" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; display: none;" id="mobileNavCta">Join Early Access</a></li>
+          <li><a href="#earlyAccess" class="nav-link">Contact</a></li>
         </ul>
       </nav>
 
-      <div class="header-actions">
-        <a href="#earlyAccess" class="btn btn-primary header-cta-btn" style="padding: 0.55rem 1.25rem; font-size: 0.85rem;">Join Early Access</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <a href="#earlyAccess" class="btn btn-blue" style="padding: 0.55rem 1.35rem; font-size: 0.88rem;">
+          Get Yours Now
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
     </div>
   </header>
 
   <!-- ==========================================================================
-       HERO SECTION
+       HERO SECTION (MATCHING REFERENCE LAYOUT & ROAD ASSET)
        ========================================================================== -->
-  <section class="hero" id="hero">
+  <section class="hero-section" id="hero">
     <div class="container">
       <div class="hero-grid">
-        <div class="hero-content">
-          <div class="pill-eyebrow">Smarter Alerts. Safer Rides.</div>
-          <h1 class="hero-headline">
-            Feel the Threat <span class="text-gradient">Before You See It.</span>
+        <!-- Left Hero Content -->
+        <div>
+          <div class="hero-eyebrow">SMARTER ALERTS. SAFER RIDES.</div>
+          <h1 class="hero-title">
+            Feel the Threat
+            <span class="highlight">Before You See It</span>
           </h1>
           <p class="hero-desc">
-            SafeRide is a proposed smart haptic warning concept for motorcycles and scooters. It translates rear-approaching traffic detection into independent directional handlebar vibrations, giving riders situational awareness without taking their eyes off the road.
+            SafeRide is a smart haptic warning system for motorcycles and scooters that detects vehicles approaching from behind and alerts you through vibration in the left or right handlebar grip.
           </p>
-          
-          <div class="hero-cta-group">
-            <a href="#earlyAccess" class="btn btn-primary">
-              Join Early Access
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
+          <!-- 3 Inline Badges from Reference -->
+          <div class="hero-badges-row">
+            <div class="hero-badge-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Rear vehicle detection</span>
+            </div>
+            <div class="hero-badge-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 6v12M17 6v12M3 9v6M21 9v6"/></svg>
+              <span>Directional vibration alerts</span>
+            </div>
+            <div class="hero-badge-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Easy DIY / retrofit installation</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="hero-cta-row">
+            <a href="#earlyAccess" class="btn btn-blue">
+              Get Yours Now &rarr;
             </a>
-            <a href="#howItWorks" class="btn btn-secondary">Explore How It Works</a>
-          </div>
-
-          <div class="hero-chips">
-            <div class="hero-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              <span>Directional Haptic Alerts</span>
-            </div>
-            <div class="hero-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              <span>Rear-Traffic Awareness</span>
-            </div>
-            <div class="hero-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.19M15 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.19"/></svg>
-              <span>Motorcycles & Scooters</span>
-            </div>
-          </div>
-
-          <div class="status-badge">
-            <span class="status-dot"></span>
-            <span>Currently in prototype development • Concept Stage</span>
+            <button class="btn btn-glass" onclick="openVideoLightbox()">
+    Watch Video &#9655;
+</button>
           </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="product-frame">
-            <div class="haptic-pulse-ring" style="top: 25%; left: 10%; width: 120px; height: 120px;"></div>
-            <div class="haptic-pulse-ring" style="top: 25%; right: 10%; width: 120px; height: 120px; animation-delay: 1.75s;"></div>
-            <!-- Primary Product Hero Render -->
+        <!-- Right Hero Media: Real Handlebar Road Image + Radar HUD -->
+        <div class="hero-media-container">
+          <img 
+            src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png" 
+            alt="SafeRide motorcycle on the road with handlebar grip" 
+            class="hero-road-photo"
+          >
+
+          <!-- Circular Radar Pulse Element (Vehicle Approaching from Behind) -->
+          <div class="radar-alert-hud">
+            <div class="radar-circle">
+              <!-- Car Silhouette Icon -->
+              <svg class="radar-car-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+              </svg>
+            </div>
+            <div class="radar-alert-text">
+              Vehicle Approaching<br>from Behind
+            </div>
+          </div>
+
+          <!-- Blue Haptic Vibration Waves radiating off the handlebar grip -->
+          <div class="haptic-wave-container">
+            <div class="haptic-ring"></div>
+            <div class="haptic-ring"></div>
+            <div class="haptic-ring"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOUR-COLUMN FEATURE RIBBON (WHITE CLEAN STRIP LIKE REFERENCE)
+       ========================================================================== -->
+  <section class="feature-ribbon-section" id="features">
+    <div class="container">
+      <div class="ribbon-grid">
+        <!-- 1: Rear Vehicle Detection -->
+        <div class="ribbon-item">
+          <div class="ribbon-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div>
+            <h3 class="ribbon-title">Rear Vehicle Detection</h3>
+            <p class="ribbon-desc">Uses advanced sensors to detect vehicles approaching from behind and in the blind spots.</p>
+          </div>
+        </div>
+
+        <!-- 2: Directional Vibration Alerts -->
+        <div class="ribbon-item">
+          <div class="ribbon-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 5v14M18 5v14M2 8v8M22 8v8"/></svg>
+          </div>
+          <div>
+            <h3 class="ribbon-title">Directional Vibration Alerts</h3>
+            <p class="ribbon-desc">Left grip vibrates for left-side threats, right grip vibrates for right-side threats. Easy to feel, even with gloves.</p>
+          </div>
+        </div>
+
+        <!-- 3: Universal Fit -->
+        <div class="ribbon-item">
+          <div class="ribbon-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div>
+            <h3 class="ribbon-title">Universal Fit</h3>
+            <p class="ribbon-desc">Designed for both motorcycles and scooters. No permanent modifications needed.</p>
+          </div>
+        </div>
+
+        <!-- 4: Weather Resistant -->
+        <div class="ribbon-item">
+          <div class="ribbon-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          </div>
+          <div>
+            <h3 class="ribbon-title">Weather Resistant</h3>
+            <p class="ribbon-desc">Built for real-world conditions. Rugged, durable and engineered for weather resilience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       HOW IT WORKS SECTION (MATCHING REFERENCE IMAGE 3-PANEL LAYOUT)
+       ========================================================================== -->
+  <section class="how-it-works-section" id="howItWorks">
+    <div class="container">
+      <div class="how-it-works-grid">
+        <!-- Left: Copy & CTA -->
+        <div class="how-left-col">
+          <div class="section-tag">HOW IT WORKS</div>
+          <h2 class="how-title">Simple Technology.<br>Real Protection.</h2>
+          <p class="how-desc">
+            SafeRide uses rear-facing sensors to detect vehicles approaching from behind. The system processes the data and activates the left or right handlebar grip motor with a distinct vibration pattern, so you can react in time.
+          </p>
+          <a href="#demo" class="btn btn-blue">
+            Learn More &rarr;
+          </a>
+        </div>
+
+        <!-- Center: Complete Hardware Kit Render + 4 Callout Legend -->
+        <div class="how-center-col">
+          <div class="kit-image-wrap">
             <img 
-              id="heroProductImg"
               src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256716/grok_1793256332150_tnciz0.png" 
-              alt="SafeRide front product render showing handlebar grip assembly with electric blue haptic vibration indicators and controller" 
-              class="hero-img"
+              alt="SafeRide Hardware Kit Assembly" 
+              class="kit-image"
             >
+            <div class="kit-legend-row">
+              <div class="kit-legend-item">
+                <span class="num-circle">1</span>
+                <div>
+                  Handlebar grips
+                  <span class="kit-subtext">(with vibration motors)</span>
+                </div>
+              </div>
+              <div class="kit-legend-item">
+                <span class="num-circle">2</span>
+                <div>
+                  Control unit
+                  <span class="kit-subtext">(ESP32 based)</span>
+                </div>
+              </div>
+              <div class="kit-legend-item">
+                <span class="num-circle">3</span>
+                <div>
+                  Rear sensors
+                  <span class="kit-subtext">(dual ultrasonic / radar)</span>
+                </div>
+              </div>
+              <div class="kit-legend-item">
+                <span class="num-circle">4</span>
+                <div>
+                  Waterproof wiring
+                  <span class="kit-subtext">&amp; connectors</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==========================================================================
-       PROBLEM & OPPORTUNITY
-       ========================================================================== */
-  -->
-  <section class="section-spacing problem-section" id="problem">
-    <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">The Engineering Challenge</div>
-        <h2 class="section-title">The Road Behind You Matters.</h2>
-        <p class="section-subtitle">
-          Two-wheeler riders must continuously divide cognitive attention between oncoming traffic, road hazards, rear-view mirrors, and rapid overtaking maneuvers from behind.
-        </p>
-      </div>
-
-      <div class="challenge-grid">
-        <div class="challenge-card">
-          <span class="card-num">CHALLENGE 01</span>
-          <h3 class="card-title">Limited Rearward Awareness</h3>
-          <p class="card-desc">
-            Vibration, mirror placement, and narrow fields of view can limit continuous awareness of vehicles approaching at high speed in blind angles.
-          </p>
-        </div>
-
-        <div class="challenge-card">
-          <span class="card-num">CHALLENGE 02</span>
-          <h3 class="card-title">Visual Warnings Divert Focus</h3>
-          <p class="card-desc">
-            Flashing screens or helmet heads-up displays require focal shifts, pulling critical gaze away from the path ahead during split-second maneuvers.
-          </p>
-        </div>
-
-        <div class="challenge-card">
-          <span class="card-num">CHALLENGE 03</span>
-          <h3 class="card-title">Retrofit Accessibility Barrier</h3>
-          <p class="card-desc">
-            Most automotive radar systems are locked into expensive luxury cars. Designing an affordable, compact retrofit system for diverse commuter two-wheelers is an unsolved engineering pursuit.
-          </p>
-        </div>
-      </div>
-
-      <div class="tactile-statement-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <!-- Right: Perfect for Indian Roads Card -->
         <div>
-          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem;">Tactile Alerts: A Purely Intuitive Sensory Channel</h4>
-          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.55;">
-            SafeRide explores handlebar haptics as a direct, physical notification method. By utilizing the rider's natural grip interface, directional warnings can be perceived instantaneously without adding visual clutter.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       FEATURES SECTION (INCLUDES LEFT & RIGHT GRIP IMAGES SIDE-BY-SIDE)
-       ========================================================================== -->
-  <section class="section-spacing" id="features">
-    <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Core Capabilities Under Evaluation</div>
-        <h2 class="section-title">Designed for Touch. Built for Focus.</h2>
-        <p class="section-subtitle">
-          SafeRide translates environmental sensor data into directional tactile patterns right under your palms.
-        </p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div>
-            <div class="feature-icon-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m10 12V4M3 8h4m10 0h4M5 20h14"/></svg>
-            </div>
-            <h3 class="card-title">Directional Vibration</h3>
-            <p class="card-desc">
-              Independent left and right vibration actuators are designed to communicate the side associated with a detected vehicle. If a car approaches on your left, your left grip vibrates.
+          <div class="indian-roads-card">
+            <h3>Perfect for Indian Roads</h3>
+            <p>
+              Whether you ride a motorcycle or a scooter, SafeRide gives you an extra set of senses — so you can focus on the road, not what's behind you.
             </p>
-          </div>
-        </div>
+            <ul class="indian-checklist">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Affordable</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Easy installation</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Reliable alerts</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Built for everyday riders</span>
+              </li>
+            </ul>
 
-        <div class="feature-card">
-          <div>
-            <div class="feature-icon-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
-            </div>
-            <h3 class="card-title">Rear-Traffic Sensing</h3>
-            <p class="card-desc">
-              The prototype explores rear-facing sensors for detecting vehicles behind the rider. Reliable moving-vehicle discrimination is currently being tested under varying road geometries.
-            </p>
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div>
-            <div class="feature-icon-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </div>
-            <h3 class="card-title">No-Screen Interaction</h3>
-            <p class="card-desc">
-              The intended experience communicates warnings purely through touch, helping minimize the need to look at a display, smart phone, or visual dashboard cluster.
-            </p>
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div>
-            <div class="feature-icon-badge">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </div>
-            <h3 class="card-title">Retrofit-Oriented Design</h3>
-            <p class="card-desc">
-              SafeRide is being designed around a compact electronic controller, ergonomic handlebar sleeves, and clean mounting hardware suitable for diverse motorcycle and scooter geometries.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Grips Showcase Integration: Left & Right Grips -->
-      <div class="grips-showcase">
-        <h3 class="grips-title">Independent Left & Right Actuator Enclosures</h3>
-        <p class="grips-sub">
-          Integrated vibration actuators within each grip sleeve allow distinct tactile feedback patterns, communicating whether approaching traffic is closing in on the port or starboard side.
-        </p>
-
-        <div class="grips-grid">
-          <!-- Left Grip -->
-          <div class="grip-unit">
-            <span class="grip-unit-tag">LEFT HANDLEBAR</span>
-            <img 
-              src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256374328_sgeiwr.png" 
-              alt="SafeRide Left-side haptic grip showing ergonomic texturing and embedded blue vibration emitter"
-              class="grip-img"
-              loading="lazy"
-            >
-            <h4 class="grip-caption">Left Haptic Grip</h4>
-            <p class="grip-desc">Dedicated vibration actuator for vehicles detected approaching on the left-side lane or blind zone.</p>
-          </div>
-
-          <!-- Right Grip -->
-          <div class="grip-unit">
-            <span class="grip-unit-tag">RIGHT HANDLEBAR</span>
-            <img 
-              src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256380209_epyv0o.png" 
-              alt="SafeRide Right-side haptic grip showing throttle-compatible architecture and blue actuator accents"
-              class="grip-img"
-              loading="lazy"
-            >
-            <h4 class="grip-caption">Right Haptic Grip</h4>
-            <p class="grip-desc">Dedicated vibration actuator for vehicles overtaking on the right side or approaching from starboard angles.</p>
+            <span class="script-signature">Ride Safe. Always.</span>
           </div>
         </div>
       </div>
@@ -1881,511 +1580,134 @@
   </section>
 
   <!-- ==========================================================================
-       HOW IT WORKS SECTION (WITH REAR SENSOR & CONTROL UNIT IMAGES)
+       INTERACTIVE HAPTIC SIMULATION
        ========================================================================== -->
-  <section class="section-spacing how-it-works-section" id="howItWorks">
+  <section class="demo-section" id="demo">
     <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">System Architecture</div>
-        <h2 class="section-title">How SafeRide Works.</h2>
-        <p class="section-subtitle">
-          From rear detection to handlebar haptics in milliseconds. A seamless four-step flow engineered for non-distracting awareness.
-        </p>
+      <div class="section-headline-center">
+        <h2>Experience the Haptic Logic</h2>
+        <p>Explore how SafeRide intuitively cues you without demanding your eyes off the asphalt ahead.</p>
       </div>
 
-      <!-- Visual Step Cards Featuring Supplied Images -->
-      <div class="steps-visual-grid">
-        <!-- Rear Sensor Image Card -->
-        <div class="visual-step-card">
-          <div class="visual-step-media">
-            <img 
-              src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256715/grok_1793256369789_a2h8er.png" 
-              alt="Rear sensor placement concept mounted under the motorcycle tail light"
-              loading="lazy"
-            >
-          </div>
-          <div class="visual-step-body">
-            <span class="step-badge">Stage A: Tail Mounting</span>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Rear Sensor Placement</h3>
-            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
-              Sensors mounted discreetly near the tail light or license assembly monitor the road behind the vehicle, continuously gathering distance and closing-speed cues.
-            </p>
-          </div>
-        </div>
-
-        <!-- Electronic Control Unit Image Card -->
-        <div class="visual-step-card">
-          <div class="visual-step-media">
-            <img 
-              src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256717/grok_1793256353749_v9p9x4.png" 
-              alt="SafeRide electronic control unit prototype enclosure with status LED indicators"
-              loading="lazy"
-            >
-          </div>
-          <div class="visual-step-body">
-            <span class="step-badge">Stage B: Processing Hub</span>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Electronic Processing Unit</h3>
-            <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
-              A weatherproof micro-controller runs threat-filtering algorithms, discriminating static roadside infrastructure from rapidly approaching automobiles.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Four Steps Breakdown -->
-      <div class="four-steps-grid">
-        <div class="mini-step-card">
-          <span class="step-badge">STEP 01</span>
-          <h4>Detect</h4>
-          <p>Rear-facing sensors scan incoming traffic trajectories and track closing distances behind the two-wheeler.</p>
-        </div>
-
-        <div class="mini-step-card">
-          <span class="step-badge">STEP 02</span>
-          <h4>Process</h4>
-          <p>The electronic controller calculates approach rate and determines if programmed warning criteria are triggered.</p>
-        </div>
-
-        <div class="mini-step-card">
-          <span class="step-badge">STEP 03</span>
-          <h4>Communicate</h4>
-          <p>The system pulses the corresponding left or right grip vibration actuator with customized tactile cues.</p>
-        </div>
-
-        <div class="mini-step-card">
-          <span class="step-badge">STEP 04</span>
-          <h4>Respond</h4>
-          <p>The rider receives intuitive tactile feedback and checks mirrors and blind spots before executing lane changes.</p>
-        </div>
-      </div>
-
-      <!-- Flow Diagram -->
-      <div class="flow-diagram-container">
-        <div class="flow-diagram-title">Conceptual System Flow Architecture</div>
-        <div class="flow-nodes">
-          <div class="flow-node">Rear Sensors</div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-node">Processing Unit (ECU)</div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-node">Motor Driver Circuit</div>
-          <span class="flow-arrow">→</span>
-          <div class="flow-node">Left & Right Haptic Grips</div>
-        </div>
-      </div>
-
-      <p class="tech-caveat-note">
-        Note: Basic ultrasonic distance sensors are useful for benchtop verification; reliable on-road vehicle detection requires advanced radar/time-of-flight validation currently under engineering research.
-      </p>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       PRODUCT COMPONENTS (EXPLODED / SYSTEM VIEW)
-       ========================================================================== -->
-  <section class="section-spacing" id="components">
-    <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Hardware Architecture</div>
-        <h2 class="section-title">System Components.</h2>
-        <p class="section-subtitle">
-          An exploded overview of the modular subsystems currently being integrated into test rigs.
-        </p>
-      </div>
-
-      <div class="components-grid">
-        <div class="component-card">
-          <span class="comp-num">1</span>
-          <div>
-            <h4 class="comp-title">Left Haptic Grip Actuator</h4>
-            <p class="comp-desc">High-frequency resonant motor integrated into ergonomic silicone casing for left-hand tactile cues.</p>
-          </div>
-        </div>
-
-        <div class="component-card">
-          <span class="comp-num">2</span>
-          <div>
-            <h4 class="comp-title">Right Haptic Grip Actuator</h4>
-            <p class="comp-desc">Matching actuator engineered for throttle side integration without impeding mechanical throttle twist action.</p>
-          </div>
-        </div>
-
-        <div class="component-card">
-          <span class="comp-num">3</span>
-          <div>
-            <h4 class="comp-title">Electronic Processing Unit</h4>
-            <p class="comp-desc">Central micro-controller enclosure housing signal filtering, debounce routines, and power conditioning.</p>
-          </div>
-        </div>
-
-        <div class="component-card">
-          <span class="comp-num">4</span>
-          <div>
-            <h4 class="comp-title">Rear-Facing Sensors</h4>
-            <p class="comp-desc">Prototype array testing directional range, target separation, and vehicle approach vectors.</p>
-          </div>
-        </div>
-
-        <div class="component-card">
-          <span class="comp-num">5</span>
-          <div>
-            <h4 class="comp-title">Protected Power & Wiring</h4>
-            <p class="comp-desc">Automotive-grade shielded harness with fuse protection connecting to the bike's 12V auxiliary line.</p>
-          </div>
-        </div>
-
-        <div class="component-card">
-          <span class="comp-num">6</span>
-          <div>
-            <h4 class="comp-title">Universal Mounting Hardware</h4>
-            <p class="comp-desc">Vibration-damped bracket assemblies designed for tubular motorcycle bars and scooter handlebar cowlings.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="status-badge" style="display: flex; justify-content: center; max-width: 780px; margin: 0 auto; text-align: center;">
-        <span>Hardware Note: Component selection and form factors represent current design targets and remain subject to test benchmarks.</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       INTERACTIVE VIBRATION DEMONSTRATION
-       ========================================================================== -->
-  <section class="section-spacing" id="demonstration" style="background: #090E1A;">
-    <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Interactive Concept Simulation</div>
-        <h2 class="section-title">Experience the Haptic Logic.</h2>
-        <p class="section-subtitle">
-          Test the simulated alert states below to understand how SafeRide communicates vehicle position directly through your hands.
-        </p>
-      </div>
-
-      <div class="demo-container">
-        <!-- Interactive Mode Selectors -->
-        <div class="demo-controls" role="tablist" aria-label="Haptic Scenarios">
-          <button class="demo-tab-btn active" data-scenario="left" role="tab" aria-selected="true" id="tab-left">
-            ← Vehicle Detected on Left
+      <div class="simulator-container">
+        <div class="sim-tab-controls" role="tablist">
+          <button class="sim-tab-btn active" data-side="left" role="tab" aria-selected="true">
+            Vehicle on Left Side
           </button>
-          <button class="demo-tab-btn" data-scenario="right" role="tab" aria-selected="false" id="tab-right">
-            Vehicle Detected on Right →
+          <button class="sim-tab-btn" data-side="right" role="tab" aria-selected="false">
+            Vehicle on Right Side
           </button>
-          <button class="demo-tab-btn" data-scenario="both" role="tab" aria-selected="false" id="tab-both">
-            ⚠ Approaching Both Sides
+          <button class="sim-tab-btn" data-side="both" role="tab" aria-selected="false">
+            Vehicle Approaching Center / Both
           </button>
         </div>
 
-        <!-- Visual Grip Rig & Readout -->
-        <div class="demo-canvas">
-          <div class="handlebar-rig" aria-hidden="true">
-            <div class="handlebar-crossbar"></div>
-
-            <!-- Left Grip Representation -->
-            <div class="grip-simulator vibrating" id="simGripLeft">
-              <div class="grip-sim-title">Left Grip</div>
-              <div class="grip-sim-indicator"></div>
+        <div class="sim-display-grid">
+          <div class="handlebar-sim-visual">
+            <div class="bar-stem"></div>
+            <!-- Left Grip -->
+            <div class="grip-element pulsing" id="simGripLeft">
+              <div style="font-size: 0.72rem; font-weight: 700;">LEFT</div>
+              <div class="grip-indicator"></div>
             </div>
-
-            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); z-index: 1;">
-              [ STEERING AXIS ]
+            <!-- Center Stem Label -->
+            <div style="font-size: 0.72rem; color: #94A3B8; z-index: 2; background: #FFF; padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid #E2E8F0;">
+              HANDLEBAR
             </div>
-
-            <!-- Right Grip Representation -->
-            <div class="grip-simulator" id="simGripRight">
-              <div class="grip-sim-title">Right Grip</div>
-              <div class="grip-sim-indicator"></div>
+            <!-- Right Grip -->
+            <div class="grip-element" id="simGripRight">
+              <div style="font-size: 0.72rem; font-weight: 700;">RIGHT</div>
+              <div class="grip-indicator"></div>
             </div>
           </div>
 
-          <!-- Dynamic Text Readout -->
-          <div class="demo-readout" id="demoReadout">
-            <div class="readout-label">Haptic Output State</div>
-            <div class="readout-state" id="readoutState">Left Actuator Pulsing</div>
-            <p class="readout-explanation" id="readoutExplanation">
-              A rapid closing velocity has been flagged on your rear-left quarter. The left handlebar grip pulses in a rhythmic double-burst pattern, intuitively guiding your attention to check your left mirror and shoulder position.
+          <!-- Readout Box -->
+          <div class="sim-readout-card">
+            <div class="sim-readout-tag" id="readoutTag">Left Threat Detected</div>
+            <h4 class="sim-readout-title" id="readoutTitle">Left Handlebar Vibrating</h4>
+            <p class="sim-readout-desc" id="readoutDesc">
+              A vehicle is closing in quickly on your left-hand side or blind spot. The left handlebar grip pulses in a distinct cadence, prompting you to verify your left rear-view mirror before initiating any maneuver.
             </p>
           </div>
         </div>
-
-        <p class="demo-disclaimer">
-          Interactive concept simulation — no real sensors are connected. Animations respect device reduced-motion settings.
-        </p>
       </div>
     </div>
   </section>
 
   <!-- ==========================================================================
-       SPECIFICATIONS TABLE
+       HARDWARE GALLERY & DETAILED CARDS (ALL 6 CLOUDINARY ASSETS)
        ========================================================================== -->
-  <section class="section-spacing" id="specs">
+  <section class="gallery-section" id="gallery">
     <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Technical Blueprint</div>
-        <h2 class="section-title">System Specifications.</h2>
-        <p class="section-subtitle">
-          Transparent development metrics. SafeRide is in active prototyping; final numbers will be published following laboratory and track validation.
-        </p>
-      </div>
-
-      <div class="specs-table-wrapper">
-        <table class="specs-table">
-          <tbody>
-            <tr>
-              <th>Product Classification</th>
-              <td>Haptic Rider-Assistance Prototype</td>
-            </tr>
-            <tr>
-              <th>Target Vehicles</th>
-              <td>Motorcycles and Scooters (Commuter & Highway)</td>
-            </tr>
-            <tr>
-              <th>Primary Objective</th>
-              <td>Rear-traffic situational awareness enhancement</td>
-            </tr>
-            <tr>
-              <th>Alert Channel</th>
-              <td>Dual independent left/right handlebar vibration actuators</td>
-            </tr>
-            <tr>
-              <th>Processing Hardware</th>
-              <td><span class="specs-badge-eval">Under evaluation (Embedded 32-bit MCU)</span></td>
-            </tr>
-            <tr>
-              <th>Sensor Modality</th>
-              <td><span class="specs-badge-eval">Under evaluation (Radar / LiDAR / Ultrasonic arrays)</span></td>
-            </tr>
-            <tr>
-              <th>Power Integration</th>
-              <td><span class="specs-badge-eval">Under evaluation (Vehicle 12V auxiliary / internal cell)</span></td>
-            </tr>
-            <tr>
-              <th>Effective Range</th>
-              <td><span class="specs-badge-eval">Not yet validated (Testing target: 15–35 meters)</span></td>
-            </tr>
-            <tr>
-              <th>Ingress Protection</th>
-              <td><span class="specs-badge-eval">Not yet validated (Design objective: IP67)</span></td>
-            </tr>
-            <tr>
-              <th>Installation Mechanism</th>
-              <td>Prototype mounting clamps under development</td>
-            </tr>
-            <tr>
-              <th>Regulatory Certification</th>
-              <td>Not yet obtained (Pre-certification phase)</td>
-            </tr>
-            <tr>
-              <th>Commercial Availability</th>
-              <td>Not yet available for retail purchase</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); max-width: 600px; margin: 0 auto;">
-        *All specifications listed above are design targets under iterative review. Final certified production values will be released prior to commercial manufacturing.
-      </p>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       DEVELOPMENT ROADMAP
-       ========================================================================== -->
-  <section class="section-spacing" id="roadmap" style="background: #090E1A;">
-    <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Milestones & Strategy</div>
-        <h2 class="section-title">Development Roadmap.</h2>
-        <p class="section-subtitle">
-          Our honest, phase-gated approach to building safe, dependable automotive electronics.
-        </p>
-      </div>
-
-      <div class="roadmap-timeline">
-        <!-- Stage 1 (Active) -->
-        <div class="roadmap-card active">
-          <div class="roadmap-stage-num">
-            <span>STAGE 01</span>
-            <span class="current-pulse-badge">Active Focus</span>
-          </div>
-          <h3 class="roadmap-title">Functional Prototype</h3>
-          <p class="roadmap-desc">
-            Assemble the primary electronic controller, build dual independent vibration drivers, and benchmark grip actuator response latencies.
-          </p>
-        </div>
-
-        <!-- Stage 2 -->
-        <div class="roadmap-card">
-          <div class="roadmap-stage-num">
-            <span>STAGE 02</span>
-          </div>
-          <h3 class="roadmap-title">Sensing Experiments</h3>
-          <p class="roadmap-desc">
-            Evaluate radar versus ultrasonic sensor placement on diverse motorcycle tail sections; measure blind-spot detection and false alarm rates.
-          </p>
-        </div>
-
-        <!-- Stage 3 -->
-        <div class="roadmap-card">
-          <div class="roadmap-stage-num">
-            <span>STAGE 03</span>
-          </div>
-          <h3 class="roadmap-title">Controlled Validation</h3>
-          <p class="roadmap-desc">
-            Test vibration distinguishability while wearing riding gloves; evaluate rain resistance, thermal stability, and chassis vibration damping.
-          </p>
-        </div>
-
-        <!-- Stage 4 -->
-        <div class="roadmap-card">
-          <div class="roadmap-stage-num">
-            <span>STAGE 04</span>
-          </div>
-          <h3 class="roadmap-title">Product Refinement</h3>
-          <p class="roadmap-desc">
-            Design injection-molded enclosures, pursue ARAI/regulatory compliance pathways, refine tooling costs, and investigate distribution models.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       REAL-WORLD CONCEPT & INDIAN TWO-WHEELER CONTEXT
-       ========================================================================== -->
-  <section class="section-spacing road-concept-section" id="roadConcept">
-    <div class="container">
-      <!-- Full-Width Cinematic Banner using Product-on-the-Road Image -->
-      <div class="cinematic-banner">
-        <img 
-          src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png" 
-          alt="SafeRide smart haptic grips concept envisioned on a motorcycle handlebar riding on the open road" 
-          class="banner-img"
-          loading="lazy"
-        >
-        <div class="banner-overlay">
-          <div class="banner-caption">
-            <h3 class="banner-title">Designed for Greater Awareness on the Road.</h3>
-            <p class="banner-sub">
-              Concept study — not yet road tested or certified. Envisioned for intuitive rearward perception.
-            </p>
-          </div>
-          <div>
-            <span class="status-badge" style="background: rgba(0,0,0,0.6);">Concept Render</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-header" style="margin-bottom: 2.5rem;">
-        <div class="pill-eyebrow">Indian Road Realities</div>
-        <h2 class="section-title">Built Around Everyday Two-Wheeler Needs.</h2>
-        <p class="section-subtitle">
-          India's roadways present some of the most dynamic traffic conditions in the world. SafeRide's engineering priorities reflect these realities.
-        </p>
-      </div>
-
-      <div class="indian-needs-grid">
-        <div class="need-card">
-          <h4>Affordable Hardware Architecture</h4>
-          <p>
-            Aiming to create a retrofit solution that everyday commuters can adopt, rather than a luxury accessory limited to high-displacement bikes.
-          </p>
-        </div>
-
-        <div class="need-card">
-          <h4>Non-Distracting Tactile Channel</h4>
-          <p>
-            In dense urban corridors where looking away from the road for half a second can be hazardous, physical handlebar haptics keep eyes locked ahead.
-          </p>
-        </div>
-
-        <div class="need-card">
-          <h4>Scooter & Motorcycle Adaptability</h4>
-          <p>
-            Researching mounting geometries that fit both step-through scooters with cowled handlebars and standard 22mm tubular motorcycle bars.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       PRODUCT GALLERY (ALL 6 SUPPLIED IMAGES WITH LIGHTBOX)
-       ========================================================================== -->
-  <section class="section-spacing" id="gallery">
-    <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Visual Renders</div>
-        <h2 class="section-title">SafeRide System Gallery.</h2>
-        <p class="section-subtitle">
-          Explore all six concept renders depicting our current mechanical and electrical architecture. Click any item to enlarge.
-        </p>
+      <div class="section-headline-center">
+        <h2>Hardware Component Gallery</h2>
+        <p>Explore the modular subsystems engineered for the SafeRide prototype architecture.</p>
       </div>
 
       <div class="gallery-grid">
-        <!-- 1: Front Hero Assembly -->
-        <div class="gallery-item" onclick="openLightbox(0)">
-          <div class="gallery-thumb-wrap">
-            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256716/grok_1793256332150_tnciz0.png" alt="Front product hero assembly" loading="lazy">
+        <!-- 1: Full Handlebar Assembly -->
+        <div class="gallery-card" onclick="openLightbox(0)">
+          <div class="gallery-media">
+            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256716/grok_1793256332150_tnciz0.png" alt="SafeRide Hardware Assembly" loading="lazy">
           </div>
-          <div class="gallery-info">
-            <span class="gallery-label">Full Handlebar Assembly</span>
-            <span class="gallery-zoom-icon">↗</span>
+          <div class="gallery-caption-row">
+            <span>Complete Hardware Kit</span>
+            <span style="color: var(--primary-blue); font-size: 0.85rem;">View &rarr;</span>
           </div>
         </div>
 
         <!-- 2: Control Unit -->
-        <div class="gallery-item" onclick="openLightbox(1)">
-          <div class="gallery-thumb-wrap">
-            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256717/grok_1793256353749_v9p9x4.png" alt="SafeRide control unit" loading="lazy">
+        <div class="gallery-card" onclick="openLightbox(1)">
+          <div class="gallery-media">
+            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256717/grok_1793256353749_v9p9x4.png" alt="Electronic Control Unit" loading="lazy">
           </div>
-          <div class="gallery-info">
-            <span class="gallery-label">Electronic Control Unit</span>
-            <span class="gallery-zoom-icon">↗</span>
+          <div class="gallery-caption-row">
+            <span>Control Unit (ESP32)</span>
+            <span style="color: var(--primary-blue); font-size: 0.85rem;">View &rarr;</span>
           </div>
         </div>
 
-        <!-- 3: Rear Sensor -->
-        <div class="gallery-item" onclick="openLightbox(2)">
-          <div class="gallery-thumb-wrap">
-            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256715/grok_1793256369789_a2h8er.png" alt="Rear sensor placement" loading="lazy">
+        <!-- 3: Rear Sensor Placement -->
+        <div class="gallery-card" onclick="openLightbox(2)">
+          <div class="gallery-media">
+            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256715/grok_1793256369789_a2h8er.png" alt="Rear Sensor Placement" loading="lazy">
           </div>
-          <div class="gallery-info">
-            <span class="gallery-label">Rear Sensor Placement</span>
-            <span class="gallery-zoom-icon">↗</span>
+          <div class="gallery-caption-row">
+            <span>Rear Sensor Mount</span>
+            <span style="color: var(--primary-blue); font-size: 0.85rem;">View &rarr;</span>
           </div>
         </div>
 
         <!-- 4: Left Grip -->
-        <div class="gallery-item" onclick="openLightbox(3)">
-          <div class="gallery-thumb-wrap">
-            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256374328_sgeiwr.png" alt="Left side haptic grip" loading="lazy">
+        <div class="gallery-card" onclick="openLightbox(3)">
+          <div class="gallery-media">
+            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256374328_sgeiwr.png" alt="Left Haptic Grip" loading="lazy">
           </div>
-          <div class="gallery-info">
-            <span class="gallery-label">Left Haptic Grip</span>
-            <span class="gallery-zoom-icon">↗</span>
+          <div class="gallery-caption-row">
+            <span>Left Haptic Grip</span>
+            <span style="color: var(--primary-blue); font-size: 0.85rem;">View &rarr;</span>
           </div>
         </div>
 
         <!-- 5: Right Grip -->
-        <div class="gallery-item" onclick="openLightbox(4)">
-          <div class="gallery-thumb-wrap">
-            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256380209_epyv0o.png" alt="Right side haptic grip" loading="lazy">
+        <div class="gallery-card" onclick="openLightbox(4)">
+          <div class="gallery-media">
+            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256380209_epyv0o.png" alt="Right Haptic Grip" loading="lazy">
           </div>
-          <div class="gallery-info">
-            <span class="gallery-label">Right Haptic Grip</span>
-            <span class="gallery-zoom-icon">↗</span>
+          <div class="gallery-caption-row">
+            <span>Right Haptic Grip</span>
+            <span style="color: var(--primary-blue); font-size: 0.85rem;">View &rarr;</span>
           </div>
         </div>
 
         <!-- 6: Product on Road -->
-        <div class="gallery-item" onclick="openLightbox(5)">
-          <div class="gallery-thumb-wrap lifestyle">
-            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png" alt="Product concept on the open road" loading="lazy">
+        <div class="gallery-card" onclick="openLightbox(5)">
+          <div class="gallery-media" style="padding: 0;">
+            <img src="https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png" alt="Motorcycle on the Road" style="object-fit: cover; height: 100%;" loading="lazy">
           </div>
-          <div class="gallery-info">
-            <span class="gallery-label">On-Road Concept View</span>
-            <span class="gallery-zoom-icon">↗</span>
+          <div class="gallery-caption-row">
+            <span>On-Road Real Concept</span>
+            <span style="color: var(--primary-blue); font-size: 0.85rem;">View &rarr;</span>
           </div>
         </div>
       </div>
@@ -2393,114 +1715,133 @@
   </section>
 
   <!-- LIGHTBOX MODAL -->
-  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Image Lightbox">
+  <div class="lightbox-backdrop" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Product Image Lightbox">
     <div class="lightbox-content">
-      <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Close Lightbox">&times;</button>
-      <img id="lightboxImg" src="" alt="" class="lightbox-img">
-      <div class="lightbox-caption" id="lightboxCaption"></div>
-      <div class="lightbox-sub" id="lightboxSub"></div>
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close Lightbox">&times;</button>
+      <img id="lightboxImg" src="" alt="Enlarged Render">
+      <h3 id="lightboxTitle"></h3>
+      <p id="lightboxDesc"></p>
     </div>
   </div>
 
   <!-- ==========================================================================
-       ABOUT SECTION
+       SPECIFICATIONS TABLE (CLEAN MATRIX)
        ========================================================================== -->
-  <section class="section-spacing" id="about" style="background: #0B111E;">
+  <section class="specs-section" id="specs">
     <div class="container">
-      <div class="about-box">
-        <div class="pill-eyebrow">Our Philosophy</div>
-        <h2 class="section-title" style="text-align: left;">Engineering a More Aware Ride.</h2>
-        
-        <p class="about-lead">
-          SafeRide began with a simple engineering question: could a motorcycle communicate approaching traffic through the sense of touch?
-        </p>
-        
-        <p class="about-body">
-          We are exploring a haptic warning system that translates sensor information into directional handlebar vibrations. Our approach is to start with a functional prototype, test the limitations honestly, and improve the design based on measurable results.
-        </p>
-        
-        <p class="about-body">
-          The goal is not to replace mirrors, rider judgment, or established safety practices. It is to investigate whether tactile alerts can become a useful additional source of information for two-wheeler riders.
-        </p>
+      <div class="section-headline-center">
+        <h2>Prototype Specifications</h2>
+        <p>Honest engineering parameters under iterative benchtop testing.</p>
+      </div>
 
-        <div class="about-disclaimer-pill">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <div>
-            <strong>Transparent Prototype Disclosure:</strong> SafeRide is an independent exploratory concept. We make no claims of verified crash prevention, road-legal certification, or finished consumer availability.
-          </div>
-        </div>
+      <div class="specs-card-wrap">
+        <table class="specs-table">
+          <tbody>
+            <tr>
+              <th>System Classification</th>
+              <td>Directional Haptic Rider-Assistance Concept</td>
+            </tr>
+            <tr>
+              <th>Compatible Two-Wheelers</th>
+              <td>Motorcycles and Scooters (Standard 22mm Handlebars)</td>
+            </tr>
+            <tr>
+              <th>Sensory Warning Modality</th>
+              <td>Independent Left / Right Resonant Handlebar Vibration</td>
+            </tr>
+            <tr>
+              <th>Control Micro-Architecture</th>
+              <td><span class="spec-pill">ESP32 / 32-bit MCU (Under Evaluation)</span></td>
+            </tr>
+            <tr>
+              <th>Rear Sensor Modality</th>
+              <td><span class="spec-pill">Dual Ultrasonic / Radar Array (Testing Range: 15–30m)</span></td>
+            </tr>
+            <tr>
+              <th>Power Supply</th>
+              <td>12V DC Vehicle Auxiliary Harness with Fuse Protection</td>
+            </tr>
+            <tr>
+              <th>Weather Sealing</th>
+              <td><span class="spec-pill">Design Target: IP67 (Pending Road Certification)</span></td>
+            </tr>
+            <tr>
+              <th>Regulatory Status</th>
+              <td>Pre-commercial Prototype • Not Certified by ARAI/DOT</td>
+            </tr>
+            <tr>
+              <th>Commercial Availability</th>
+              <td>Under active engineering development (Early Access registration open)</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
   <!-- ==========================================================================
-       EARLY ACCESS & COLLABORATION FORM
+       EARLY ACCESS / GET YOURS NOW FORM
        ========================================================================== -->
-  <section class="section-spacing" id="earlyAccess">
+  <section class="early-access-section" id="earlyAccess">
     <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Join the Community</div>
-        <h2 class="section-title">Help Shape the Future of SafeRide.</h2>
-        <p class="section-subtitle">
-          We are developing the initial prototype and looking for rider feedback, electronics enthusiasts, engineering collaborators, and potential early adopters.
-        </p>
+      <div class="section-headline-center">
+        <h2>Join the Early Access List</h2>
+        <p>Register to participate in early prototype testing rounds, technical feedback, and production updates.</p>
       </div>
 
-      <div class="form-wrapper">
-        <div id="formStatusBox" class="form-status" role="alert"></div>
-
-        <form id="earlyAccessForm" novalidate>
+      <div class="form-container-card">
+        <form id="accessForm" novalidate>
           <div class="form-row">
             <div class="form-group">
-              <label for="fullName" class="form-label">Full Name *</label>
-              <input type="text" id="fullName" class="form-control" placeholder="Arjun Sharma" required>
+              <label for="userName">Full Name *</label>
+              <input type="text" id="userName" class="form-input" placeholder="Rohan Patil" required>
             </div>
             <div class="form-group">
-              <label for="emailAddr" class="form-label">Email Address *</label>
-              <input type="email" id="emailAddr" class="form-control" placeholder="arjun@example.com" required>
+              <label for="userEmail">Email Address *</label>
+              <input type="email" id="userEmail" class="form-input" placeholder="rohan@example.com" required>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="riderCity" class="form-label">City / Region (Optional)</label>
-              <input type="text" id="riderCity" class="form-control" placeholder="Bengaluru, Pune, etc.">
+              <label for="userCity">City / Region (Optional)</label>
+              <input type="text" id="userCity" class="form-input" placeholder="Bengaluru, Pune, Mumbai">
             </div>
             <div class="form-group">
-              <label for="riderType" class="form-label">Vehicle Type *</label>
-              <select id="riderType" class="form-control" required>
+              <label for="vehicleType">Vehicle Type *</label>
+              <select id="vehicleType" class="form-input" required>
                 <option value="">Select your ride...</option>
                 <option value="motorcycle">Motorcycle</option>
                 <option value="scooter">Scooter</option>
-                <option value="both">Both Motorcycle & Scooter</option>
-                <option value="enthusiast">Non-Rider / Industry Collaborator</option>
+                <option value="both">Both Motorcycle &amp; Scooter</option>
+                <option value="enthusiast">Student / Engineer / Collaborator</option>
               </select>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="interestType" class="form-label">Primary Interest *</label>
-            <select id="interestType" class="form-control" required>
-              <option value="">How would you like to participate?</option>
-              <option value="updates">Receive Prototype Updates</option>
-              <option value="testing">Beta / Closed-Circuit Prototype Testing</option>
-              <option value="engineering">Hardware / Firmware Engineering Collaboration</option>
-              <option value="investment">Investment / Strategic Partnership Discussion</option>
+            <label for="interestGoal">Primary Interest *</label>
+            <select id="interestGoal" class="form-input" required>
+              <option value="">What brings you here?</option>
+              <option value="early_adopter">Early Access Prototype Testing</option>
+              <option value="engineering">Hardware / Firmware Collaboration</option>
+              <option value="investment">Partnership / Investment Discussion</option>
+              <option value="updates">Stay Updated on Product Launch</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="userMessage" class="form-label">Optional Message or Feedback</label>
-            <textarea id="userMessage" class="form-control" placeholder="Tell us about your daily commute or technical questions..."></textarea>
+            <label for="userNotes">Message or Feedback (Optional)</label>
+            <textarea id="userNotes" class="form-input" placeholder="Tell us about your daily riding conditions..."></textarea>
           </div>
 
-          <label class="checkbox-container">
-            <input type="checkbox" id="consentCheck" required>
-            <span>I consent to receiving occasional project updates about SafeRide's prototype progress. (No spam, un-register anytime).</span>
+          <label class="consent-check-row">
+            <input type="checkbox" id="consentBox" required>
+            <span>I agree to receive occasional project emails regarding SafeRide prototype development.</span>
           </label>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitBtn">
-            Register Interest
+          <button type="submit" class="btn btn-blue" style="width: 100%; font-size: 1rem; padding: 0.85rem;" id="submitButton">
+            Register for Early Access &rarr;
           </button>
         </form>
       </div>
@@ -2510,91 +1851,61 @@
   <!-- ==========================================================================
        FAQ SECTION
        ========================================================================== -->
-  <section class="section-spacing" id="faq" style="background: #090E1A;">
+  <section class="faq-section" id="faq">
     <div class="container">
-      <div class="section-header">
-        <div class="pill-eyebrow">Common Questions</div>
-        <h2 class="section-title">Frequently Asked Questions.</h2>
-        <p class="section-subtitle">
-          Everything you need to know about SafeRide's concept, mechanics, and prototype timeline.
-        </p>
+      <div class="section-headline-center">
+        <h2>Frequently Asked Questions</h2>
+        <p>Clear, direct answers about SafeRide's current prototype status and design goals.</p>
       </div>
 
-      <div class="faq-container">
-        <!-- Q1 -->
+      <div class="faq-wrapper">
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Is SafeRide available to buy?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <button class="faq-header-btn">
+            <span>Is SafeRide available for purchase today?</span>
+            <span class="faq-chevron">&#9662;</span>
           </button>
-          <div class="faq-answer">
-            Not yet. SafeRide is currently a prototype-stage concept. Detection accuracy, operating range, weather resistance, collision-warning performance, and road safety must be thoroughly validated through engineering tests before commercial release.
+          <div class="faq-body">
+            Not yet. SafeRide is an active engineering prototype concept. Detection accuracy, range, weather sealing, and road safety must be verified through testing before commercial release.
           </div>
         </div>
 
-        <!-- Q2 -->
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Does it detect every approaching vehicle?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <button class="faq-header-btn">
+            <span>Does it detect every vehicle in all conditions?</span>
+            <span class="faq-chevron">&#9662;</span>
           </button>
-          <div class="faq-answer">
-            No. Detection capabilities depend entirely on the final sensor modalities, positioning, weather conditions, vibration damping, and software filtering. Reliable performance benchmarks must be established through ongoing track testing.
+          <div class="faq-body">
+            No. Detection reliability depends on sensor placement, weather conditions, vibration filtering, and approaching vehicle trajectories. Reliable real-world performance is currently under validation.
           </div>
         </div>
 
-        <!-- Q3 -->
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Will it fit my motorcycle or scooter?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <button class="faq-header-btn">
+            <span>Will it fit both motorcycles and scooters?</span>
+            <span class="faq-chevron">&#9662;</span>
           </button>
-          <div class="faq-answer">
-            The design is being planned around standard 22mm (7/8") motorcycle handlebars and typical scooter handlebar cowlings. However, universal compatibility across every specific two-wheeler make and model has not yet been validated.
+          <div class="faq-body">
+            Yes. The retrofit architecture is being designed for standard 22mm (7/8") motorcycle handlebars and typical scooter cowlings without requiring permanent chassis modifications.
           </div>
         </div>
 
-        <!-- Q4 -->
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Does it prevent accidents?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <button class="faq-header-btn">
+            <span>Does it guarantee collision avoidance?</span>
+            <span class="faq-chevron">&#9662;</span>
           </button>
-          <div class="faq-answer">
-            No such guarantee can ever be made. SafeRide is being developed strictly as a supplementary warning concept, never a substitute for rear-view mirrors, physical shoulder checks, defensive driving habits, or formal rider training.
+          <div class="faq-body">
+            No safety system can guarantee accident prevention. SafeRide is strictly a supplementary awareness aid, not a substitute for checking your rear-view mirrors and riding defensively.
           </div>
         </div>
 
-        <!-- Q5 -->
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Does it need an active internet connection?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <button class="faq-header-btn">
+            <span>Does it require a smartphone or internet connection to function?</span>
+            <span class="faq-chevron">&#9662;</span>
           </button>
-          <div class="faq-answer">
-            The intended core sensing and vibration functions are designed to operate locally on the onboard microcontroller without requiring cellular connectivity or an active cloud link.
-          </div>
-        </div>
-
-        <!-- Q6 -->
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>How much will it cost?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="faq-answer">
-            The initial development budget is being evaluated. A final retail price cannot be determined until hardware sourcing, manufacturing tooling, testing validation, and compliance costs are fully accounted for.
-          </div>
-        </div>
-
-        <!-- Q7 -->
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Can I collaborate or test the prototype?</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="faq-answer">
-            Yes. We welcome interest from embedded systems engineers, sensor specialists, industrial designers, and rider communities. Please submit your details via the Early Access form above.
+          <div class="faq-body">
+            No. The core sensing and handlebar vibration logic operates entirely locally inside the onboard electronic control unit with zero internet dependency.
           </div>
         </div>
       </div>
@@ -2607,399 +1918,289 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <a href="#hero" class="brand-logo">
-            <svg class="brand-icon" viewBox="0 0 32 32" fill="none">
-              <path d="M16 3L5 7V14C5 21.5 9.8 28.2 16 30C22.2 28.2 27 21.5 27 14V7L16 3Z" stroke="#00A3FF" stroke-width="2.2"/>
-              <path d="M11 16H21" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span>SafeRide</span>
-          </a>
-          <p class="footer-brand-desc">
-            Feel the Threat Before You See It. An experimental haptic rider-assistance system concept engineered for motorcycle and scooter awareness.
+        <div class="footer-brand">
+          <h4>SafeRide</h4>
+          <p style="font-size: 0.9rem; line-height: 1.6; max-width: 320px;">
+            Feel the Threat Before You See It. An intuitive haptic rider-assistance system concept engineered for motorcycle and scooter awareness.
           </p>
         </div>
 
         <div>
-          <h4 class="footer-heading">Navigation</h4>
+          <h5 class="footer-heading">Product</h5>
           <ul class="footer-links">
             <li><a href="#hero">Overview</a></li>
-            <li><a href="#problem">The Problem</a></li>
-            <li><a href="#features">Haptic Grips</a></li>
-            <li><a href="#howItWorks">Architecture</a></li>
-            <li><a href="#demonstration">Interactive Demo</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#howItWorks">How It Works</a></li>
+            <li><a href="#demo">Haptic Demo</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="footer-heading">Project</h4>
+          <h5 class="footer-heading">Details</h5>
           <ul class="footer-links">
             <li><a href="#specs">Specifications</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#gallery">Render Gallery</a></li>
-            <li><a href="#about">About Concept</a></li>
-            <li><a href="#earlyAccess">Collaborate</a></li>
+            <li><a href="#gallery">Hardware Gallery</a></li>
+            <li><a href="#earlyAccess">Early Access</a></li>
+            <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="footer-heading">Development Status</h4>
-          <div class="status-badge" style="margin-bottom: 0.75rem;">
-            <span class="status-dot"></span>
-            <span>Prototype Phase</span>
-          </div>
-          <p style="font-size: 0.8rem; color: var(--text-dim); line-height: 1.5;">
-            Bangalore / Pune technical research community outreach.
+          <h5 class="footer-heading">Prototype Stage</h5>
+          <p style="font-size: 0.85rem; line-height: 1.5; color: #94A3B8;">
+            Bangalore / Pune technical research community outreach. Concept prototype under active evaluation.
           </p>
         </div>
       </div>
 
       <div class="footer-disclaimer-box">
-        <strong>SAFETY & LEGAL DISCLAIMER:</strong> SafeRide is an early-stage engineering concept and prototype research initiative. It has not been approved or certified by motor vehicle safety regulators (such as ARAI, DOT, or UNECE). SafeRide does not claim to eliminate blind spots or guarantee collision avoidance. Riders bear sole responsibility for observing traffic laws, checking physical mirrors, conducting shoulder checks, and riding with caution at all times.
+        <strong>SAFETY DISCLAIMER:</strong> SafeRide is an early-stage research prototype. It has not been approved or certified by motor vehicle regulators (such as ARAI, DOT, or UNECE). SafeRide does not claim to eliminate blind spots or guarantee collision avoidance. The rider retains total responsibility for vehicle control, mirror observation, shoulder checks, and road safety at all times.
       </div>
 
-      <div class="footer-bottom">
-        <div>
-          &copy; <span id="currentYear"></span> SafeRide Concept Research. All rights reserved.
-        </div>
+      <div class="footer-bottom-row">
+        <div>&copy; <span id="currentYear"></span> SafeRide Concept Research. All rights reserved.</div>
         <div style="display: flex; gap: 1.5rem;">
-          <a href="#about" style="color: var(--text-dim);">Research Scope</a>
-          <a href="#specs" style="color: var(--text-dim);">Technical Notes</a>
-          <a href="#earlyAccess" style="color: var(--text-dim);">Early Access</a>
+          <a href="#hero" style="color: #64748B;">Home</a>
+          <a href="#specs" style="color: #64748B;">Specs</a>
+          <a href="#earlyAccess" style="color: #64748B;">Contact</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Toast Element -->
+  <div class="toast-popup" id="toast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMessage">Recorded successfully</span>
+  </div>
+
   <!-- ==========================================================================
-       STANDALONE JAVASCRIPT (LOGIC & INTERACTION)
+       SCRIPTS: INTERACTIONS, LIGHTBOX, HAPTIC DEMO, FORM
        ========================================================================== -->
   <script>
     /**
-     * CONFIGURATION VARIABLE: PRIMARY HERO PRODUCT IMAGE
-     * Replace this URL anytime to re-point the hero visual across the application.
+     * CONFIGURATION VARIABLE: Primary hero image reference
      */
-    const PRODUCT_IMAGE_URL = "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256716/grok_1793256332150_tnciz0.png";
+    const PRODUCT_IMAGE_URL = "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png";
 
-    // Set dynamic current year in footer
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Ensure hero image honors the config variable
-    const heroImgEl = document.getElementById('heroProductImg');
-    if (heroImgEl && PRODUCT_IMAGE_URL) {
-      heroImgEl.src = PRODUCT_IMAGE_URL;
-    }
-
-    /* --------------------------------------------------------------------------
-       MOBILE NAVIGATION TOGGLE
-       -------------------------------------------------------------------------- */
+    /* Mobile Menu Toggle */
     const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    const mobileNavCta = document.getElementById('mobileNavCta');
+    const navLinks = document.getElementById('navLinks');
 
-    if (menuToggle && navMenu) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = navMenu.classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', isOpen);
-        if (mobileNavCta) {
-          mobileNavCta.style.display = isOpen ? 'inline-flex' : 'none';
-        }
-      });
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
 
-      // Close menu when a navigation link is clicked
-      navMenu.querySelectorAll('.nav-link, .btn').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('open');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          if (mobileNavCta) mobileNavCta.style.display = 'none';
-        });
-      });
-    }
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
 
-    /* --------------------------------------------------------------------------
-       INTERACTIVE HAPTIC SIMULATION LOGIC
-       -------------------------------------------------------------------------- */
+    /* Interactive Haptic Simulator Tabs */
     const scenarios = {
       left: {
-        title: "Left Actuator Pulsing",
-        text: "A rapid closing velocity has been flagged on your rear-left quarter. The left handlebar grip pulses in a rhythmic double-burst pattern, intuitively guiding your attention to check your left mirror and shoulder position.",
-        leftVibrating: true,
-        rightVibrating: false
+        tag: "Left Threat Detected",
+        title: "Left Handlebar Vibrating",
+        desc: "A vehicle is closing in quickly on your left-hand side or blind spot. The left handlebar grip pulses in a distinct cadence, prompting you to verify your left rear-view mirror before initiating any maneuver.",
+        left: true,
+        right: false
       },
       right: {
-        title: "Right Actuator Pulsing",
-        text: "A vehicle is closing in on your rear-right side or attempting an overtaking maneuver. The right handlebar grip pulses, cueing you to yield or remain steady in your lane without glancing backward.",
-        leftVibrating: false,
-        rightVibrating: true
+        tag: "Right Threat Detected",
+        title: "Right Handlebar Vibrating",
+        desc: "A vehicle is closing in on your right rear quarter or attempting an overtake. The right handlebar grip pulses, advising you to maintain your line without needing to turn your head.",
+        left: false,
+        right: true
       },
       both: {
-        title: "Dual Actuators Pulsing in Synchrony",
-        text: "Simultaneous vehicles or a central high-speed vehicle approaching directly behind on your rear centerline. Both grips vibrate concurrently with rapid tempo, prompting a general awareness check of both mirrors.",
-        leftVibrating: true,
-        rightVibrating: true
+        tag: "Immediate Rear Threat",
+        title: "Both Handlebars Pulsing Simultaneously",
+        desc: "A high-speed vehicle is closing directly on your rear centerline. Both handlebar grips vibrate concurrently with rapid tempo, prompting immediate awareness across both mirrors.",
+        left: true,
+        right: true
       }
     };
 
+    const simTabs = document.querySelectorAll('.sim-tab-btn');
     const simGripLeft = document.getElementById('simGripLeft');
     const simGripRight = document.getElementById('simGripRight');
-    const readoutState = document.getElementById('readoutState');
-    const readoutExplanation = document.getElementById('readoutExplanation');
-    const demoTabs = document.querySelectorAll('.demo-tab-btn');
+    const readoutTag = document.getElementById('readoutTag');
+    const readoutTitle = document.getElementById('readoutTitle');
+    const readoutDesc = document.getElementById('readoutDesc');
 
-    demoTabs.forEach(tab => {
+    simTabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        demoTabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-
+        simTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
 
-        const scenarioKey = tab.dataset.scenario;
-        const data = scenarios[scenarioKey];
+        const side = tab.dataset.side;
+        const config = scenarios[side];
 
-        if (data) {
-          readoutState.textContent = data.title;
-          readoutExplanation.textContent = data.text;
+        readoutTag.textContent = config.tag;
+        readoutTitle.textContent = config.title;
+        readoutDesc.textContent = config.desc;
 
-          // Toggle vibration animations
-          if (data.leftVibrating) {
-            simGripLeft.classList.add('vibrating');
-          } else {
-            simGripLeft.classList.remove('vibrating');
-          }
+        if (config.left) {
+          simGripLeft.classList.add('pulsing');
+        } else {
+          simGripLeft.classList.remove('pulsing');
+        }
 
-          if (data.rightVibrating) {
-            simGripRight.classList.add('vibrating');
-          } else {
-            simGripRight.classList.remove('vibrating');
-          }
+        if (config.right) {
+          simGripRight.classList.add('pulsing');
+        } else {
+          simGripRight.classList.remove('pulsing');
+        }
+
+        // Hardware vibration test on supported Android devices
+        if ("vibrate" in navigator) {
+          try { navigator.vibrate(config.left && config.right ? [60, 40, 60] : [60]); } catch (e) {}
         }
       });
     });
 
-    /* --------------------------------------------------------------------------
-       FAQ ACCORDION LOGIC
-       -------------------------------------------------------------------------- */
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const questionBtn = item.querySelector('.faq-question');
-      questionBtn.addEventListener('click', () => {
-        const isCurrentOpen = item.classList.contains('active');
-        
-        // Close all items
-        faqItems.forEach(i => {
-          i.classList.remove('active');
-          const btn = i.querySelector('.faq-question');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-        });
-
-        // Toggle clicked item
-        if (!isCurrentOpen) {
-          item.classList.add('active');
-          questionBtn.setAttribute('aria-expanded', 'true');
-        }
+    /* FAQ Accordion Toggle */
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const btn = item.querySelector('.faq-header-btn');
+      btn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!isOpen) item.classList.add('active');
       });
     });
 
-    /* --------------------------------------------------------------------------
-       GALLERY LIGHTBOX LOGIC
-       -------------------------------------------------------------------------- */
-    const galleryItemsData = [
+    /* Lightbox Modal Logic */
+    const galleryItems = [
       {
         url: "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256716/grok_1793256332150_tnciz0.png",
-        title: "SafeRide Handlebar System Assembly",
-        sub: "Complete handlebar assembly showing dual grip actuators, central wiring harness, and controller enclosure."
+        title: "Complete Hardware Kit Assembly",
+        desc: "Controller unit, left and right haptic grip sleeves, wiring harness, and dual rear sensors."
       },
       {
         url: "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256717/grok_1793256353749_v9p9x4.png",
-        title: "Electronic Control Unit (ECU)",
-        sub: "Weatherproof controller housing threat-evaluation microcode, power management, and LED status monitors."
+        title: "Electronic Control Unit (ESP32 Based)",
+        desc: "Weatherproof enclosure housing threat-filtering logic and resonant motor drivers."
       },
       {
         url: "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256715/grok_1793256369789_a2h8er.png",
-        title: "Rear Sensor Integration Placement",
-        sub: "Sub-assembly render illustrating tail-lamp bracket mounting for unobstructed rear trajectory coverage."
+        title: "Rear Sensor Integration",
+        desc: "Tail-lamp bracket placement designed for clear, unobstructed rear roadway scanning."
       },
       {
         url: "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256374328_sgeiwr.png",
         title: "Left-Side Haptic Grip",
-        sub: "Ergonomic handlebar sleeve with integrated vibration motor dedicated to port-side threat communication."
+        desc: "Ergonomic handlebar sleeve with internal vibration motor for left-side threat warnings."
       },
       {
         url: "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256380209_epyv0o.png",
         title: "Right-Side Haptic Grip",
-        sub: "Throttle-compatible ergonomic grip engineered to convey starboard alerts without interfering with wrist rotation."
+        desc: "Throttle-compatible grip casing engineered to communicate right-side approaching traffic."
       },
       {
         url: "https://res.cloudinary.com/prjgzqvy/image/upload/v1793256693/grok_1793256385446_n7uil4.png",
-        title: "Real-World Concept Demonstration",
-        sub: "Concept study portraying situational handlebar haptics during high-speed highway riding."
+        title: "On-Road Real Concept",
+        desc: "Conceptual depiction of handlebar haptics active during real-world motorcycle travel."
       }
     ];
 
     const lightboxModal = document.getElementById('lightboxModal');
     const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCaption = document.getElementById('lightboxCaption');
-    const lightboxSub = document.getElementById('lightboxSub');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDesc = document.getElementById('lightboxDesc');
 
-    function openLightbox(index) {
-      const item = galleryItemsData[index];
-      if (!item || !lightboxModal) return;
-
-      lightboxImg.src = item.url;
-      lightboxImg.alt = item.title;
-      lightboxCaption.textContent = item.title;
-      lightboxSub.textContent = item.sub;
-
-      lightboxModal.classList.add('active');
+    function openLightbox(idx) {
+      const data = galleryItems[idx];
+      if (!data) return;
+      lightboxImg.src = data.url;
+      lightboxTitle.textContent = data.title;
+      lightboxDesc.textContent = data.desc;
+      lightboxModal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
-      if (!lightboxModal) return;
-      lightboxModal.classList.remove('active');
+      lightboxModal.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    // Close lightbox on clicking outside content
-    if (lightboxModal) {
-      lightboxModal.addEventListener('click', (e) => {
-        if (e.target === lightboxModal) {
-          closeLightbox();
-        }
-      });
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) closeLightbox();
+    });
 
-      // Escape key closes modal
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
-          closeLightbox();
-        }
-      });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    /* Toast Notification Helper */
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = msg;
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), 3500);
     }
 
-    /* --------------------------------------------------------------------------
-       EARLY ACCESS FORM (WITH CLIENT-SIDE VALIDATION & SUPABASE-READY DATA)
-       -------------------------------------------------------------------------- */
-    const earlyAccessForm = document.getElementById('earlyAccessForm');
-    const formStatusBox = document.getElementById('formStatusBox');
-    const submitBtn = document.getElementById('submitBtn');
-    let isSubmitting = false;
+    /* Early Access Form Validation & Local Demo Recording */
+    const accessForm = document.getElementById('accessForm');
+    const submitButton = document.getElementById('submitButton');
 
-    if (earlyAccessForm) {
-      earlyAccessForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    accessForm.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-        if (isSubmitting) return;
+      const name = document.getElementById('userName').value.trim();
+      const email = document.getElementById('userEmail').value.trim();
+      const city = document.getElementById('userCity').value.trim() || 'Unspecified';
+      const vehicle = document.getElementById('vehicleType').value;
+      const interest = document.getElementById('interestGoal').value;
+      const notes = document.getElementById('userNotes').value.trim() || 'None';
+      const consent = document.getElementById('consentBox').checked;
 
-        // Reset status
-        formStatusBox.className = 'form-status';
-        formStatusBox.style.display = 'none';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!name) {
+        showToast('Please enter your full name.');
+        return;
+      }
+      if (!email || !emailRegex.test(email)) {
+        showToast('Please enter a valid email address.');
+        return;
+      }
+      if (!vehicle) {
+        showToast('Please choose your vehicle type.');
+        return;
+      }
+      if (!interest) {
+        showToast('Please select your primary interest.');
+        return;
+      }
+      if (!consent) {
+        showToast('Please check the consent box.');
+        return;
+      }
 
-        // Gather form values
-        const fullName = document.getElementById('fullName').value.trim();
-        const emailAddr = document.getElementById('emailAddr').value.trim();
-        const riderCity = document.getElementById('riderCity').value.trim();
-        const riderType = document.getElementById('riderType').value;
-        const interestType = document.getElementById('interestType').value;
-        const userMessage = document.getElementById('userMessage').value.trim();
-        const consent = document.getElementById('consentCheck').checked;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting...';
 
-        // Validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!fullName) {
-          showFormError('Please enter your full name.');
-          return;
-        }
-        if (!emailAddr || !emailRegex.test(emailAddr)) {
-          showFormError('Please enter a valid email address.');
-          return;
-        }
-        if (!riderType) {
-          showFormError('Please choose your vehicle type.');
-          return;
-        }
-        if (!interestType) {
-          showFormError('Please indicate how you would like to participate.');
-          return;
-        }
-        if (!consent) {
-          showFormError('Please tick the checkbox to consent to project updates.');
-          return;
-        }
+      const payload = {
+        name, email, city, vehicle, interest, notes,
+        registeredAt: new Date().toISOString()
+      };
 
-        // Data payload ready for future Supabase or backend integration
-        const submissionPayload = {
-          fullName,
-          emailAddr,
-          riderCity: riderCity || 'Unspecified',
-          riderType,
-          interestType,
-          userMessage: userMessage || 'None provided',
-          submittedAt: new Date().toISOString()
-        };
+      setTimeout(() => {
+        try {
+          const records = JSON.parse(localStorage.getItem('saferide_demo_leads') || '[]');
+          records.push(payload);
+          localStorage.setItem('saferide_demo_leads', JSON.stringify(records));
+        } catch (err) {}
 
-        // Simulate network submission state
-        isSubmitting = true;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Registering Interest...';
-
-        setTimeout(() => {
-          // Store locally in browser storage as demo fallback
-          try {
-            const existing = JSON.parse(localStorage.getItem('saferide_early_access') || '[]');
-            existing.push(submissionPayload);
-            localStorage.setItem('saferide_early_access', JSON.stringify(existing));
-          } catch (err) {
-            console.warn('LocalStorage unavailable for fallback demo recording.', err);
-          }
-
-          // Show truthful success confirmation
-          formStatusBox.className = 'form-status success';
-          formStatusBox.textContent = `Thank you, ${fullName}! Your interest has been recorded in demo mode. We will reach out at ${emailAddr} as development milestones unlock.`;
-          formStatusBox.style.display = 'block';
-
-          earlyAccessForm.reset();
-          isSubmitting = false;
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Register Interest';
-        }, 800);
-      });
-    }
-
-    function showFormError(msg) {
-      if (!formStatusBox) return;
-      formStatusBox.className = 'form-status error';
-      formStatusBox.textContent = msg;
-      formStatusBox.style.display = 'block';
-    }
-
-    /* --------------------------------------------------------------------------
-       ACCESSIBLE SCROLLSPY (ACTIVE NAV HIGHLIGHT)
-       -------------------------------------------------------------------------- */
-    const navSections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-menu .nav-link');
-
-    window.addEventListener('scroll', () => {
-      let currentSectionId = '';
-      const scrollPos = window.scrollY + 120;
-
-      navSections.forEach(section => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight;
-        if (scrollPos >= top && scrollPos < top + height) {
-          currentSectionId = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSectionId}`) {
-          link.classList.add('active');
-        }
-      });
-    }, { passive: true });
+        showToast(`Thank you, ${name}! Early Access recorded.`);
+        accessForm.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = 'Register for Early Access →';
+      }, 600);
+    });
   </script>
 </body>
+
+
   </html>
